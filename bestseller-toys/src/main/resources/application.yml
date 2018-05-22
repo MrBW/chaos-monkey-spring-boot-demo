@@ -1,0 +1,29 @@
+server:
+  port: 8081
+
+
+# Init Chaos Monkey for Spring Boot by profile
+spring:
+  profiles:
+    active: chaos-monkey
+
+
+
+# Configure Chaos Monkey - enabled = false
+chaos:
+  monkey:
+    enabled: false
+    watcher:
+      restController: true
+
+
+
+# Spring Boot Actuator Endpoint Chaos Monkey for Spring Boot
+management:
+  endpoint:
+    chaosmonkey:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: chaosmonkey

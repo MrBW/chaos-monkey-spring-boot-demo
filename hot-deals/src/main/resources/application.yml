@@ -1,0 +1,19 @@
+server:
+  port: 8083
+
+management:
+  endpoint:
+    chaosmonkey:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: chaosmonkey
+chaos:
+  monkey:
+    enabled: false
+    watcher:
+      restController: true
+spring:
+  profiles:
+    active: chaos-monkey
