@@ -1,0 +1,37 @@
+version: '3'
+
+networks:
+  servicenet:
+    driver: bridge
+
+services:
+  docker_base_image:
+    build: docker-instana-base/
+    image: instana_base
+  api-gateway:
+    image: mrbwilms/api-gateway
+    ports:
+    - "8080:8080"
+    networks:
+    - servicenet
+
+  besteller-fashion:
+    image: mrbwilms/bestseller-fashion
+    ports:
+    - "8082:8082"
+    networks:
+    - servicenet
+
+  bestseller-toys:
+    image: mrbwilms/bestseller-toys
+    ports:
+    - "8081:8081"
+    networks:
+    - servicenet
+
+  hot-deals:
+    image: mrbwilms/hot-deals
+    ports:
+    - "8083:8083"
+    networks:
+    - servicenet

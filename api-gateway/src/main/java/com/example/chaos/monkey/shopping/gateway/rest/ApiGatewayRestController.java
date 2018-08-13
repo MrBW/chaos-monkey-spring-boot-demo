@@ -54,6 +54,11 @@ public class ApiGatewayRestController {
         page.setToysResponse(extractResponse(bestsellerToysFuture));
         page.setHotDealsResponse(extractResponse(hotDealsFuture));
 
+        // Summary
+        page.setStatusFashion(page.getFashionResponse().getResponseType().name());
+        page.setStatusToys(page.getToysResponse().getResponseType().name());
+        page.setStatusHotDeals(page.getHotDealsResponse().getResponseType().name());
+
         // Request duration
         page.setDuration(System.currentTimeMillis() - start);
         return page;

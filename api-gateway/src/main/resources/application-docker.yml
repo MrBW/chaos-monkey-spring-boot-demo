@@ -1,0 +1,16 @@
+baseurl: "http://host.docker.internal"
+spring:
+  data:
+    rest:
+      base-path:
+
+rest:
+  endpoint:
+    fashion: "${baseurl}:8082/bestseller/fashion"
+    toys: "${baseurl}:8081/bestseller/toys"
+    hotdeals: "${baseurl}:8083/deals/hot"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
