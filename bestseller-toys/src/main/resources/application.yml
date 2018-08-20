@@ -15,8 +15,9 @@ chaos:
     enabled: false
     watcher:
       restController: true
-
-
+      service: false
+    assaults:
+      latency-active: false
 
 # Spring Boot Actuator Endpoint Chaos Monkey for Spring Boot
 management:

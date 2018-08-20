@@ -5,9 +5,6 @@ networks:
     driver: bridge
 
 services:
-  docker_base_image:
-    build: docker-instana-base/
-    image: instana_base
   api-gateway:
     image: mrbwilms/api-gateway
     ports:
