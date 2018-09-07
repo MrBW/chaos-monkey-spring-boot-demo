@@ -1,3 +1,4 @@
+
 baseurl: "http://host.docker.internal"
 spring:
   data:
@@ -14,3 +15,5 @@ management:
     web:
       exposure:
         include: '*'
+server:
+  port: 8888

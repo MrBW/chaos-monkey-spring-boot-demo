@@ -6,20 +6,36 @@ networks:
 
 services:
   chaostoolkit:
-    container_name: chaostoolkit
-    build: chaostoolkit-base/
+    image: chaostoolkit/chaostoolkit
     networks:
     - servicenet
     tty: true
-  api-gateway:
-    image: mrbwilms/api-gateway
+
+  chaoshub:
+    image: chaostoolkit/chaoshub:0.1.2
     ports:
     - "8080:8080"
     networks:
     - servicenet
+    tty: true
+
+  api-gateway:
+    image: mrbwilms/api-gateway
+    # need NET_ADMIN to run chaos linux experiments
+    cap_add:
+     - NET_ADMIN
+    ports:
+    - "8888:8888"
+    networks:
+    - servicenet
+    volumes:
+      - ./chaos-scripts:/var/chaosscripts
 
   besteller-fashion:
     image: mrbwilms/bestseller-fashion
+    # need NET_ADMIN to run chaos linux experiments
+    cap_add:
+     - NET_ADMIN
     ports:
     - "8082:8082"
     networks:
