@@ -6,7 +6,8 @@ networks:
 
 services:
   chaostoolkit:
-    image: chaostoolkit/chaostoolkit
+    container_name: chaostoolkit
+    build: chaostoolkit-base/
     networks:
     - servicenet
     tty: true
