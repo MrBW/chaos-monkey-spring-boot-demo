@@ -15,7 +15,7 @@ services:
   chaoshub:
     image: chaostoolkit/chaoshub:0.1.2
     ports:
-    - "8080:8080"
+    - "8888:8080"
     networks:
     - servicenet
     tty: true
@@ -26,7 +26,7 @@ services:
     cap_add:
      - NET_ADMIN
     ports:
-    - "8888:8888"
+    - "8080:8080"
     networks:
     - servicenet
     volumes:
