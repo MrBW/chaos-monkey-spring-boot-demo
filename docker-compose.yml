@@ -32,7 +32,7 @@ services:
     volumes:
       - ./chaos-scripts:/var/chaosscripts
 
-  besteller-fashion:
+  fashion:
     image: mrbwilms/bestseller-fashion
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
@@ -42,7 +42,7 @@ services:
     networks:
     - servicenet
 
-  bestseller-toys:
+  toys:
     image: mrbwilms/bestseller-toys
     ports:
     - "8081:8081"
