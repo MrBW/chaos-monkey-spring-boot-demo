@@ -5,6 +5,9 @@ import com.example.chaos.monkey.shopping.gateway.domain.ProductResponse;
 import com.example.chaos.monkey.shopping.gateway.domain.ResponseType;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
+import io.micrometer.core.instrument.MeterRegistry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
@@ -17,7 +20,7 @@ import java.util.List;
  */
 public class BestsellerFashionCommand extends HystrixCommand<ProductResponse> {
 
-
+    private static final Logger log = LoggerFactory.getLogger(HotDealsCommand.class);
     private final RestTemplate restTemplate;
     private final String url;
 
@@ -37,12 +40,13 @@ public class BestsellerFashionCommand extends HystrixCommand<ProductResponse> {
         response.setResponseType(ResponseType.REMOTE_SERVICE);
 
         return response;
-
-
     }
 
     @Override
     protected ProductResponse getFallback() {
-       return new ProductResponse(ResponseType.FALLBACK,Collections.<Product>emptyList());
+
+        log.warn(this.getFailedExecutionException().getLocalizedMessage());
+
+        return new ProductResponse(ResponseType.FALLBACK,Collections.<Product>emptyList());
     }
 }
