@@ -76,33 +76,9 @@ public class ApiGatewayRestController {
         // Request duration
         page.setDuration(System.currentTimeMillis() - start);
 
-        // Metrics
-        refreshMetrics();
-
         return page;
     }
-
-    private void refreshMetrics() {
-
-        HystrixMetricsPoller
-
-        List<Integer> errorPercentages = new ArrayList<>();
-        HystrixCommandMetrics.getInstances().forEach(c -> {
-            HystrixCommandMetrics.HealthCounts healthCounts = c.getHealthCounts();
-
-            int errorPercentage = healthCounts.getErrorPercentage();
-            errorPercentages.add(errorPercentage);
-            meterRegistry.gauge(c.getCommandKey().name() + ".error.percentage", errorPercentage);
-            meterRegistry.gauge(c.getCommandKey().name() + ".error.count", healthCounts.getErrorCount());
-            meterRegistry.gauge(c.getCommandKey().name() + ".total.count", healthCounts.getTotalRequests());
-
-        });
-
-        int errorPercentageResult = errorPercentages.stream().mapToInt(Integer::intValue).sum();
-        meterRegistry.gauge("api.gateway.error.percentage", errorPercentageResult / errorPercentages.size());
-    }
-
-
+    
     private ProductResponse extractResponse(Future<ProductResponse> responseFuture) {
         try {
             return responseFuture.get();
