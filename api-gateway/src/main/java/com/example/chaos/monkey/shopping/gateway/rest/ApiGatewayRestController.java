@@ -8,6 +8,7 @@ import com.example.chaos.monkey.shopping.gateway.domain.ProductResponse;
 import com.example.chaos.monkey.shopping.gateway.domain.ResponseType;
 import com.example.chaos.monkey.shopping.gateway.domain.Startpage;
 import com.netflix.hystrix.*;
+import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsPoller;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -83,6 +84,7 @@ public class ApiGatewayRestController {
 
     private void refreshMetrics() {
 
+        HystrixMetricsPoller
 
         List<Integer> errorPercentages = new ArrayList<>();
         HystrixCommandMetrics.getInstances().forEach(c -> {

@@ -41,17 +41,28 @@ services:
     - "8082:8082"
     networks:
     - servicenet
-
+    volumes:
+      - ./chaos-scripts:/var/chaosscripts
   toys:
     image: mrbwilms/bestseller-toys
+    # need NET_ADMIN to run chaos linux experiments
+    cap_add:
+      - NET_ADMIN
     ports:
     - "8081:8081"
     networks:
     - servicenet
+    volumes:
+      - ./chaos-scripts:/var/chaosscripts
 
   hot-deals:
     image: mrbwilms/hot-deals
+    # need NET_ADMIN to run chaos linux experiments
+    cap_add:
+      - NET_ADMIN
     ports:
     - "8083:8083"
     networks:
     - servicenet
+    volumes:
+      - ./chaos-scripts:/var/chaosscripts
