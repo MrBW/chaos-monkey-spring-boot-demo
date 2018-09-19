@@ -7,8 +7,7 @@ import com.example.chaos.monkey.shopping.gateway.commands.HotDealsCommand;
 import com.example.chaos.monkey.shopping.gateway.domain.ProductResponse;
 import com.example.chaos.monkey.shopping.gateway.domain.ResponseType;
 import com.example.chaos.monkey.shopping.gateway.domain.Startpage;
-import com.netflix.hystrix.*;
-import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsPoller;
+import com.netflix.hystrix.HystrixCommandGroupKey;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -16,9 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -78,7 +75,7 @@ public class ApiGatewayRestController {
 
         return page;
     }
-    
+
     private ProductResponse extractResponse(Future<ProductResponse> responseFuture) {
         try {
             return responseFuture.get();
