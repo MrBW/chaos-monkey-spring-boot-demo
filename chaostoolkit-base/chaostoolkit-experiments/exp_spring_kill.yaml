@@ -14,7 +14,7 @@
           "type": "http",
           "url": "http://api-gateway:8080/startpage"
         },
-        "tolerance": 350,
+        "tolerance": 250,
         "type": "probe"
       }
     ],
@@ -42,9 +42,9 @@
             "level": 1,
             "latencyRangeStart": 10000,
             "latencyRangeEnd": 10000,
-            "latencyActive": true,
+            "latencyActive": false,
             "exceptionsActive": false,
-            "killApplicationActive": false,
+            "killApplicationActive": true,
             "restartApplicationActive": false
           }
         },
@@ -53,20 +53,6 @@
         "type": "python"
       },
       "type": "action"
-    }
-  ],
-  "rollbacks": [
-    {
-      "name": "disable-chaosmonkey",
-      "type": "action",
-      "provider": {
-        "type": "python",
-        "module": "chaosspring.actions",
-        "func": "disable_chaosmonkey",
-        "arguments": {
-          "base_url": "http://fashion:8082/actuator"
-        }
-      }
     }
   ]
 }

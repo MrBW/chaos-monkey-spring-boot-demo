@@ -100,6 +100,7 @@
                         <repository>${project.artifactId}</repository>
                         <buildArgs>
                             <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+                            <SERVICE_NAME>${project.name}</SERVICE_NAME>
                         </buildArgs>
                         <pullNewerImage>false</pullNewerImage>
                     </configuration>

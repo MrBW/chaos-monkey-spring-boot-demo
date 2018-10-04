@@ -8,6 +8,7 @@ services:
   docker-base-image:
     build: docker-base-image/
     image: docker-base-image
+
   chaostoolkit:
     container_name: chaostoolkit
     build: chaostoolkit-base/
@@ -28,8 +29,7 @@ services:
       - docker-base-image
 
   api-gateway:
-    container_name: api-gateway
-    build: api-gateway/
+    image: api-gateway
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
      - NET_ADMIN
@@ -43,8 +43,7 @@ services:
       - docker-base-image
 
   fashion:
-    container_name: bestseller-fashion
-    build: api-gateway/
+    image: bestseller-fashion
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
      - NET_ADMIN
@@ -58,8 +57,7 @@ services:
       - docker-base-image
 
   toys:
-    container_name: bestseller-toys
-    build: bestseller-toys/
+    image: bestseller-toys
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
       - NET_ADMIN
@@ -73,9 +71,7 @@ services:
       - docker-base-image
 
   hot-deals:
-    container_name: hot-deals
-    build: hot-deals/
-    image: mrbwilms/hot-deals
+    image: hot-deals
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
       - NET_ADMIN
