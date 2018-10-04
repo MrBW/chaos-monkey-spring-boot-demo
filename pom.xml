@@ -97,10 +97,11 @@
                     <version>${docker-maven-plugin.version}</version>
 
                     <configuration>
-                        <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                        <repository>${project.artifactId}</repository>
                         <buildArgs>
                             <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
                         </buildArgs>
+                        <pullNewerImage>false</pullNewerImage>
                     </configuration>
                     <executions>
                         <execution>

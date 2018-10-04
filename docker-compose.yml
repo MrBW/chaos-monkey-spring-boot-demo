@@ -5,12 +5,17 @@ networks:
     driver: bridge
 
 services:
+  docker-base-image:
+    build: docker-base-image/
+    image: docker-base-image
   chaostoolkit:
     container_name: chaostoolkit
     build: chaostoolkit-base/
     networks:
     - servicenet
     tty: true
+    depends_on:
+      - docker-base-image
 
   chaoshub:
     image: chaostoolkit/chaoshub:0.1.2
@@ -19,9 +24,12 @@ services:
     networks:
     - servicenet
     tty: true
+    depends_on:
+      - docker-base-image
 
   api-gateway:
-    image: mrbwilms/api-gateway
+    container_name: api-gateway
+    build: api-gateway/
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
      - NET_ADMIN
@@ -31,9 +39,12 @@ services:
     - servicenet
     volumes:
       - ./chaos-scripts:/var/chaosscripts
+    depends_on:
+      - docker-base-image
 
   fashion:
-    image: mrbwilms/bestseller-fashion
+    container_name: bestseller-fashion
+    build: api-gateway/
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
      - NET_ADMIN
@@ -43,8 +54,12 @@ services:
     - servicenet
     volumes:
       - ./chaos-scripts:/var/chaosscripts
+    depends_on:
+      - docker-base-image
+
   toys:
-    image: mrbwilms/bestseller-toys
+    container_name: bestseller-toys
+    build: bestseller-toys/
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
       - NET_ADMIN
@@ -54,8 +69,12 @@ services:
     - servicenet
     volumes:
       - ./chaos-scripts:/var/chaosscripts
+    depends_on:
+      - docker-base-image
 
   hot-deals:
+    container_name: hot-deals
+    build: hot-deals/
     image: mrbwilms/hot-deals
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
@@ -66,3 +85,5 @@ services:
     - servicenet
     volumes:
       - ./chaos-scripts:/var/chaosscripts
+    depends_on:
+      - docker-base-image
