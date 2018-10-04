@@ -14,7 +14,7 @@
           "type": "http",
           "url": "http://api-gateway:8080/startpage"
         },
-        "tolerance": 250,
+        "tolerance": 200,
         "type": "probe"
       }
     ],
@@ -40,12 +40,11 @@
           "base_url": "http://fashion:8082/actuator",
           "assaults_configuration": {
             "level": 1,
-            "latencyRangeStart": 10000,
+            "latencyRangeStart": 5000,
             "latencyRangeEnd": 10000,
             "latencyActive": false,
             "exceptionsActive": true,
-            "killApplicationActive": false,
-            "restartApplicationActive": false
+            "killApplicationActive": false
           }
         },
         "func": "change_assaults_configuration",
@@ -64,7 +63,7 @@
         "module": "chaosspring.actions",
         "func": "disable_chaosmonkey",
         "arguments": {
-          "base_url": "http://besteller-fashion:8082/actuator"
+          "base_url": "http://fashion:8082/actuator"
         }
       }
     }

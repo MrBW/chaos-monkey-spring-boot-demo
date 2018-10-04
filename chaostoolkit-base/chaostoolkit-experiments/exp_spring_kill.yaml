@@ -12,9 +12,10 @@
         "name": "api-gateway-must-still-respond",
         "provider": {
           "type": "http",
-          "url": "http://api-gateway:8080/startpage"
+          "url": "http://api-gateway:8080/startpage",
+          "timeout": [0.25, 0.25]
         },
-        "tolerance": 250,
+        "tolerance": 200,
         "type": "probe"
       }
     ],
@@ -40,12 +41,11 @@
           "base_url": "http://fashion:8082/actuator",
           "assaults_configuration": {
             "level": 1,
-            "latencyRangeStart": 10000,
+            "latencyRangeStart": 5000,
             "latencyRangeEnd": 10000,
             "latencyActive": false,
             "exceptionsActive": false,
-            "killApplicationActive": true,
-            "restartApplicationActive": false
+            "killApplicationActive": true
           }
         },
         "func": "change_assaults_configuration",
