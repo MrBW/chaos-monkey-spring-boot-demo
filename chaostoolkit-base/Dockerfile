@@ -4,6 +4,7 @@ ENV TERM linux
 
 COPY install-chaos.sh /root
 COPY config/.bashrc /root
+COPY config/settings.yaml /root/.chaostoolkit/settings.yaml
 
 ADD chaostoolkit-experiments/ /root
 

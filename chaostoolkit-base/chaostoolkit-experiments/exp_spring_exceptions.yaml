@@ -12,7 +12,8 @@
         "name": "api-gateway-must-still-respond",
         "provider": {
           "type": "http",
-          "url": "http://api-gateway:8080/startpage"
+          "url": "http://api-gateway:8080/startpage",
+          "timeout": [0.25, 0.25]
         },
         "tolerance": 200,
         "type": "probe"

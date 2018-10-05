@@ -17,3 +17,5 @@ echo Check Chaos Toolkit version
 chaos --version
 echo Install driver Spring Boot
 pip install -U chaostoolkit-spring
+echo Install ChaosToolkit plugin chaoshub
+pip install chaostoolkit-chaoshub
