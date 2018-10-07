@@ -15,10 +15,10 @@ import java.util.concurrent.atomic.AtomicLong;
  * @author Benjamin Wilms
  */
 @RestController
-@RequestMapping("/bestseller")
+@RequestMapping("/fashion")
 public class BestsellerFashionRestController {
 
-    @GetMapping("/fashion")
+    @GetMapping("/bestseller")
     public List<Product> getBestsellerProducts() {
         AtomicLong aLong = new AtomicLong(4);
 
