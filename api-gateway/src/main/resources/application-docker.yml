@@ -5,9 +5,9 @@ spring:
 
 rest:
   endpoint:
-    fashion: "http://fashion:8082/bestseller/fashion"
-    toys: "http://toys:8081/bestseller/toys"
-    hotdeals: "http://hot-deals:8083/deals/hot"
+    fashion: "http://localhost:8082/fashion/bestseller"
+    toys: "http://localhost:8081/toys/bestseller/"
+    hotdeals: "http://localhost:8083/hotdeals"
 management:
   endpoints:
     web:
