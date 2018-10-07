@@ -3,7 +3,6 @@ version: '3'
 services:
   docker-base-image:
     build: docker-base-image/
-    image: docker-base-image
 
   chaostoolkit:
     container_name: chaostoolkit

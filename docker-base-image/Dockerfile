@@ -1,4 +1,5 @@
 FROM harisekhon/ubuntu-java
+LABEL vendor="Chaos Shopping Demo"
 VOLUME /tmp
 COPY ./chaos-scripts /var/chaosscripts
 COPY .bashrc root/
