@@ -3,12 +3,7 @@ package com.example.chaos.monkey.shopping.gateway.commands;
 import com.example.chaos.monkey.shopping.domain.Product;
 import com.example.chaos.monkey.shopping.gateway.domain.ProductResponse;
 import com.example.chaos.monkey.shopping.gateway.domain.ResponseType;
-import com.netflix.hystrix.HystrixCommand;
-import com.netflix.hystrix.HystrixCommandGroupKey;
-import com.netflix.hystrix.HystrixMetrics;
-import com.netflix.hystrix.util.HystrixRollingNumberEvent;
-import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.MeterRegistry;
+import com.netflix.hystrix.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
@@ -30,7 +25,12 @@ public class HotDealsCommand extends HystrixCommand<ProductResponse> {
 
     public HotDealsCommand(HystrixCommandGroupKey group, int timeout, RestTemplate restTemplate,
                            String url) {
-        super(group, timeout);
+
+        super(Setter.withGroupKey(group).andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(timeout))
+                .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("hotDealsThreadPool"))
+                .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter()
+                        .withCoreSize(100)));
+
         this.restTemplate = restTemplate;
         this.url = url;
     }

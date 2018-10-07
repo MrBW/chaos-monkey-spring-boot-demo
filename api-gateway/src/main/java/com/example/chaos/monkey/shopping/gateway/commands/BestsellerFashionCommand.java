@@ -3,8 +3,7 @@ package com.example.chaos.monkey.shopping.gateway.commands;
 import com.example.chaos.monkey.shopping.domain.Product;
 import com.example.chaos.monkey.shopping.gateway.domain.ProductResponse;
 import com.example.chaos.monkey.shopping.gateway.domain.ResponseType;
-import com.netflix.hystrix.HystrixCommand;
-import com.netflix.hystrix.HystrixCommandGroupKey;
+import com.netflix.hystrix.*;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +25,12 @@ public class BestsellerFashionCommand extends HystrixCommand<ProductResponse> {
 
     public BestsellerFashionCommand(HystrixCommandGroupKey group, int timeout, RestTemplate restTemplate,
                                     String url) {
-        super(group, timeout);
+
+        super(Setter.withGroupKey(group).andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(timeout))
+                .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("fashionThreadPool"))
+                .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter()
+                        .withCoreSize(100)));
+
         this.restTemplate = restTemplate;
         this.url = url;
     }
