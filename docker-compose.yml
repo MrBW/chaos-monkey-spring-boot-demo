@@ -22,7 +22,7 @@ services:
 
   api-gateway:
     container_name: api-gateway
-    build: api-gateway/
+    image: api-gateway
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
      - NET_ADMIN
@@ -35,7 +35,7 @@ services:
 
   fashion:
     container_name: fashion
-    build: bestseller-fashion/
+    image: bestseller-fashion
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
      - NET_ADMIN
@@ -47,8 +47,8 @@ services:
       - docker-base-image
 
   toys:
+    image: bestseller-toys
     container_name: toys
-    build: bestseller-toys/
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
       - NET_ADMIN
@@ -60,8 +60,7 @@ services:
       - docker-base-image
 
   hot-deals:
-    container_name: hot-deals
-    build: hot-deals/
+    image: hot-deals
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
       - NET_ADMIN
