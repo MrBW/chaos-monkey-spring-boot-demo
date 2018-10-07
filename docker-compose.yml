@@ -1,9 +1,5 @@
 version: '3'
 
-networks:
-  servicenet:
-    driver: bridge
-
 services:
   docker-base-image:
     build: docker-base-image/
@@ -12,8 +8,6 @@ services:
   chaostoolkit:
     container_name: chaostoolkit
     build: chaostoolkit-base/
-    networks:
-    - servicenet
     tty: true
     depends_on:
       - docker-base-image
@@ -22,8 +16,6 @@ services:
     image: chaostoolkit/chaoshub:0.1.2
     ports:
     - "8888:8080"
-    networks:
-    - servicenet
     tty: true
     depends_on:
       - docker-base-image
@@ -35,8 +27,6 @@ services:
      - NET_ADMIN
     ports:
     - "8080:8080"
-    networks:
-    - servicenet
     volumes:
       - ./chaos-scripts:/var/chaosscripts
     depends_on:
@@ -49,8 +39,6 @@ services:
      - NET_ADMIN
     ports:
     - "8082:8082"
-    networks:
-    - servicenet
     volumes:
       - ./chaos-scripts:/var/chaosscripts
     depends_on:
@@ -63,8 +51,6 @@ services:
       - NET_ADMIN
     ports:
     - "8081:8081"
-    networks:
-    - servicenet
     volumes:
       - ./chaos-scripts:/var/chaosscripts
     depends_on:
@@ -77,8 +63,6 @@ services:
       - NET_ADMIN
     ports:
     - "8083:8083"
-    networks:
-    - servicenet
     volumes:
       - ./chaos-scripts:/var/chaosscripts
     depends_on:

@@ -10,4 +10,5 @@ RUN sh -c 'apt-get install sudo -qq'
 RUN sh -c 'apt-get install iputils-ping -qq'
 RUN sh -c 'apt-get install apache2-utils -qq'
 RUN sh -c 'apt-get install nano -qq'
+RUN sh -c 'apt-get install curl -qq'
 RUN useradd -ms /bin/bash chaos

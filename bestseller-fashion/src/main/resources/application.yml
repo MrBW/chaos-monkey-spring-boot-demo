@@ -16,7 +16,7 @@ chaos:
       restController: true
       service: false
     assaults:
-      latency-active: false
+      latency-active: true
 spring:
   profiles:
     active: chaos-monkey
