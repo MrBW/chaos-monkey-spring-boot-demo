@@ -31,7 +31,7 @@ public class BestsellerToysCommand extends HystrixCommand<ProductResponse> {
         super(Setter.withGroupKey(group).andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(timeout))
                 .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("toysThreadPool"))
                 .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter()
-                        .withCoreSize(10).withMaximumSize(100)));
+                        .withCoreSize(10).withMaximumSize(200).withAllowMaximumSizeToDivergeFromCoreSize(true).withMaxQueueSize(100)));
 
         this.restTemplate = restTemplate;
         this.url = url;
