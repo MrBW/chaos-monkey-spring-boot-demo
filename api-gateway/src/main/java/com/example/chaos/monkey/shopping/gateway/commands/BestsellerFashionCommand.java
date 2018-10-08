@@ -48,9 +48,7 @@ public class BestsellerFashionCommand extends HystrixCommand<ProductResponse> {
 
     @Override
     protected ProductResponse getFallback() {
-
-        log.warn(this.getFailedExecutionException().getLocalizedMessage());
-
+        
         return new ProductResponse(ResponseType.FALLBACK,Collections.<Product>emptyList());
     }
 }

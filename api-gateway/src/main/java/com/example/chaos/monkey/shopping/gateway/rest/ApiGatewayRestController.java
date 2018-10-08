@@ -8,6 +8,7 @@ import com.example.chaos.monkey.shopping.gateway.domain.ProductResponse;
 import com.example.chaos.monkey.shopping.gateway.domain.ResponseType;
 import com.example.chaos.monkey.shopping.gateway.domain.Startpage;
 import com.netflix.hystrix.HystrixCommandGroupKey;
+import com.netflix.hystrix.exception.HystrixRuntimeException;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -79,7 +80,7 @@ public class ApiGatewayRestController {
     private ProductResponse extractResponse(Future<ProductResponse> responseFuture) {
         try {
             return responseFuture.get();
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (InterruptedException | ExecutionException | HystrixRuntimeException e) {
             return new ProductResponse(ResponseType.ERROR, Collections.<Product>emptyList());
         }
     }
