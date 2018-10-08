@@ -48,7 +48,7 @@ public class BestsellerFashionCommand extends HystrixCommand<ProductResponse> {
 
     @Override
     protected ProductResponse getFallback() {
-        
+
         return new ProductResponse(ResponseType.FALLBACK,Collections.<Product>emptyList());
     }
 }
