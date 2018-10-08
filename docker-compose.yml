@@ -13,6 +13,7 @@ services:
 
   chaoshub:
     image: chaostoolkit/chaoshub:0.1.2
+    container_name: chaoshub
     ports:
     - "8888:8080"
     tty: true
@@ -60,6 +61,7 @@ services:
 
   hot-deals:
     image: hot-deals
+    container_name: hot-deals
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
       - NET_ADMIN

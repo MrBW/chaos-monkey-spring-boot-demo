@@ -29,7 +29,7 @@ public class HotDealsCommand extends HystrixCommand<ProductResponse> {
         super(Setter.withGroupKey(group).andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(timeout))
                 .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("hotDealsThreadPool"))
                 .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter()
-                        .withCoreSize(100)));
+                        .withCoreSize(10).withMaximumSize(200)));
 
         this.restTemplate = restTemplate;
         this.url = url;

@@ -29,7 +29,7 @@ public class BestsellerFashionCommand extends HystrixCommand<ProductResponse> {
         super(Setter.withGroupKey(group).andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(timeout))
                 .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("fashionThreadPool"))
                 .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter()
-                        .withCoreSize(100)));
+                        .withCoreSize(10).withMaximumSize(100)));
 
         this.restTemplate = restTemplate;
         this.url = url;
