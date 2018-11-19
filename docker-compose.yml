@@ -72,3 +72,16 @@ services:
       - ./chaos-scripts:/var/chaosscripts
     depends_on:
       - docker-base-image
+
+  eureka-server:
+    image: eureka-server
+    container_name: eureka-server
+    # need NET_ADMIN to run chaos linux experiments
+    cap_add:
+    - NET_ADMIN
+    ports:
+    - "8761:8761"
+    volumes:
+    - ./chaos-scripts:/var/chaosscripts
+    depends_on:
+    - docker-base-image

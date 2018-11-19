@@ -14,6 +14,7 @@
         <module>api-gateway</module>
         <module>gateway</module>
         <module>shared</module>
+        <module>eureka-server</module>
     </modules>
     <packaging>pom</packaging>
 

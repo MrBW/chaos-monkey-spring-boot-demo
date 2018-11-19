@@ -22,3 +22,7 @@ spring:
     active: chaos-monkey
   application:
     name: hotdeals
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
