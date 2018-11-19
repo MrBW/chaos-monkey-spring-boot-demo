@@ -8,6 +8,8 @@ import com.example.chaos.monkey.shopping.gateway.domain.ProductResponse;
 import com.example.chaos.monkey.shopping.gateway.domain.ResponseType;
 import com.example.chaos.monkey.shopping.gateway.domain.Startpage;
 import com.netflix.hystrix.HystrixCommandGroupKey;
+import com.netflix.hystrix.exception.HystrixRuntimeException;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,8 @@ import java.util.concurrent.Future;
 @RestController
 public class ApiGatewayRestController {
 
+    private MeterRegistry meterRegistry;
+
     private RestTemplate restTemplate;
 
     @Value("${rest.endpoint.fashion}")
@@ -34,9 +38,17 @@ public class ApiGatewayRestController {
 
     @Value("${rest.endpoint.hotdeals}")
     private String urlHotDeals;
+    private HystrixCommandGroupKey hotdealsCommandKey;
+    private HystrixCommandGroupKey toysCommandKey;
+    private HystrixCommandGroupKey fashionCommandKey;
 
-    public ApiGatewayRestController() {
+    public ApiGatewayRestController(MeterRegistry meterRegistry) {
+        this.meterRegistry = meterRegistry;
         this.restTemplate = new RestTemplateBuilder().build();
+
+        hotdealsCommandKey = HystrixCommandGroupKey.Factory.asKey("hotdeals");
+        toysCommandKey = HystrixCommandGroupKey.Factory.asKey("toys");
+        fashionCommandKey = HystrixCommandGroupKey.Factory.asKey("fashion");
     }
 
     @GetMapping("/startpage")
@@ -61,30 +73,32 @@ public class ApiGatewayRestController {
 
         // Request duration
         page.setDuration(System.currentTimeMillis() - start);
+
         return page;
     }
 
     private ProductResponse extractResponse(Future<ProductResponse> responseFuture) {
         try {
             return responseFuture.get();
-        } catch (InterruptedException e) {
-            return new ProductResponse(ResponseType.ERROR, Collections.<Product>emptyList());
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException | HystrixRuntimeException e) {
             return new ProductResponse(ResponseType.ERROR, Collections.<Product>emptyList());
         }
     }
 
 
     private Future<ProductResponse> getHotDeals() {
-        return new HotDealsCommand(HystrixCommandGroupKey.Factory.asKey("hotdeals"), 200, restTemplate, urlHotDeals).queue();
+
+        return new HotDealsCommand(hotdealsCommandKey, 200, restTemplate, urlHotDeals).queue();
     }
 
     private Future<ProductResponse> getBestsellerToys() {
-        return new BestsellerToysCommand(HystrixCommandGroupKey.Factory.asKey("toys"), 200, restTemplate, urlToys).queue();
+
+        return new BestsellerToysCommand(toysCommandKey, 200, restTemplate, urlToys).queue();
     }
 
     private Future<ProductResponse> getBestsellerFashion() {
-        return new BestsellerFashionCommand(HystrixCommandGroupKey.Factory.asKey("fashion"), 200, restTemplate, urlFashion).queue();
+
+        return new BestsellerFashionCommand(fashionCommandKey, 200, restTemplate, urlFashion).queue();
     }
 
 }

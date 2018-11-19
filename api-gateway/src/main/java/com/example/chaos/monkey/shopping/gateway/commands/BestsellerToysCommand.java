@@ -3,8 +3,11 @@ package com.example.chaos.monkey.shopping.gateway.commands;
 import com.example.chaos.monkey.shopping.domain.Product;
 import com.example.chaos.monkey.shopping.gateway.domain.ProductResponse;
 import com.example.chaos.monkey.shopping.gateway.domain.ResponseType;
-import com.netflix.hystrix.HystrixCommand;
-import com.netflix.hystrix.HystrixCommandGroupKey;
+import com.netflix.hystrix.*;
+import com.netflix.hystrix.util.HystrixRollingNumberEvent;
+import io.micrometer.core.instrument.MeterRegistry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
@@ -17,13 +20,19 @@ import java.util.List;
  */
 public class BestsellerToysCommand extends HystrixCommand<ProductResponse> {
 
+    private static final Logger log = LoggerFactory.getLogger(HotDealsCommand.class);
     private final RestTemplate restTemplate;
     private final String url;
 
 
     public BestsellerToysCommand(HystrixCommandGroupKey group, int timeout, RestTemplate restTemplate,
                                  String url) {
-        super(group, timeout);
+
+        super(Setter.withGroupKey(group).andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(timeout))
+                .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("toysThreadPool"))
+                .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter()
+                        .withCoreSize(10).withMaximumSize(50).withAllowMaximumSizeToDivergeFromCoreSize(true).withMaxQueueSize(100)));
+
         this.restTemplate = restTemplate;
         this.url = url;
     }
@@ -45,4 +54,6 @@ public class BestsellerToysCommand extends HystrixCommand<ProductResponse> {
     protected ProductResponse getFallback() {
         return new ProductResponse(ResponseType.FALLBACK, Collections.<Product>emptyList());
     }
+
+
 }

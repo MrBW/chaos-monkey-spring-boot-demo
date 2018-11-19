@@ -16,10 +16,9 @@ import java.util.concurrent.atomic.AtomicLong;
  * @author Benjamin Wilms
  */
 @RestController
-@RequestMapping("/deals")
 public class HotDealsRestController {
 
-    @GetMapping("/hot")
+    @GetMapping("/hotdeals")
     public List<Product> getHotDeals() {
         AtomicLong aLong = new AtomicLong(7);
 

@@ -6,7 +6,8 @@ server:
 spring:
   profiles:
     active: chaos-monkey
-
+  application:
+    name: toys-besteller
 
 
 # Configure Chaos Monkey - enabled = false

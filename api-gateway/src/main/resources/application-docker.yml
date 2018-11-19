@@ -1,16 +1,19 @@
-baseurl: "http://host.docker.internal"
 spring:
   data:
     rest:
       base-path:
+  application:
+    name: api-gateway
 
 rest:
   endpoint:
-    fashion: "${baseurl}:8082/bestseller/fashion"
-    toys: "${baseurl}:8081/bestseller/toys"
-    hotdeals: "${baseurl}:8083/deals/hot"
+    fashion: "http://fashion:8082/fashion/bestseller"
+    toys: "http://toys:8081/toys/bestseller/"
+    hotdeals: "http://hot-deals:8083/hotdeals"
 management:
   endpoints:
     web:
       exposure:
         include: '*'
+server:
+  port: 8080
