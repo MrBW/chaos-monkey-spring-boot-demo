@@ -11,7 +11,7 @@
 
     <artifactId>bestseller-fashion</artifactId>
     <name>fashion</name>
-
+    
     <dependencies>
 
         <dependency>
