@@ -6,9 +6,9 @@ spring:
     name: api-gateway
 rest:
   endpoint:
-    fashion: "http://fashion:8082/fashion/bestseller"
-    toys: "http://toys:8081/toys/bestseller/"
-    hotdeals: "http://hot-deals:8083/hotdeals"
+    fashion: "http://fashion-bestseller/fashion/bestseller"
+    toys: "http://toys-bestseller/toys/bestseller/"
+    hotdeals: "http://hotdeals/hotdeals"
 management:
   endpoints:
     web:
