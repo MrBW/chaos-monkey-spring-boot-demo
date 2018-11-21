@@ -15,14 +15,33 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        io.kompose.service: hot-deals
+        service: hot-deals
     spec:
       containers:
-      - image: hot-deals
-        imagePullPolicy: Never
+      - image: mrbwilms/hot-deals
         name: hot-deals
         ports:
         - containerPort: 8083
         resources: {}
       restartPolicy: Always
 status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose --file docker-compose.yml convert
+    kompose.version: 1.17.0 ()
+  creationTimestamp: null
+  labels:
+    service: hot-deals
+  name: hot-deals
+spec:
+  ports:
+  - name: "8083"
+    port: 8083
+    targetPort: 8083
+  selector:
+    service: hot-deals
+status:
+  loadBalancer: {}
