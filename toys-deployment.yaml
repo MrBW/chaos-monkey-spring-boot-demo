@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose --file docker-compose.yml convert
+    kompose.version: 1.17.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: toys
+  name: toys
+spec:
+  replicas: 3
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: toys
+    spec:
+      containers:
+      - image: bestseller-toys
+        imagePullPolicy: Never
+        name: toys
+        ports:
+        - containerPort: 8081
+      restartPolicy: Always
+status: {}
