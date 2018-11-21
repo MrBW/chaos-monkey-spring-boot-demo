@@ -9,4 +9,4 @@ Demo of Chaos Monkey for Spring Boot
 5. docker-compose up
 
 ## What you will find
-...
+  <img src="ChaosEngineeringWebinar.png">
