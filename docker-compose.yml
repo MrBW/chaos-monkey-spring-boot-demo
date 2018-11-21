@@ -72,5 +72,3 @@ services:
       - ./chaos-scripts:/var/chaosscripts
     depends_on:
       - docker-base-image
-    networks:
-    - servicenet
