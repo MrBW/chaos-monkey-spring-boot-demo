@@ -1,13 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    kompose.cmd: kompose --file docker-compose.yml convert
-    kompose.version: 1.17.0 ()
-  creationTimestamp: null
+  namespace: shopping-demo
+  name: api-gateway
   labels:
     io.kompose.service: api-gateway
-  name: api-gateway
 spec:
   ports:
   - name: "8080"

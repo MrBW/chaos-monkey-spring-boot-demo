@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: api-gateway
+  namespace: shopping-demo
+spec:
+  rules:
+  - host: api-gateway.workshop.demo
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: api-gateway
+          servicePort: 8080
