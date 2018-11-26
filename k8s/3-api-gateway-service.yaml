@@ -3,14 +3,12 @@ kind: Service
 metadata:
   namespace: shopping-demo
   name: api-gateway
-  labels:
-    io.kompose.service: api-gateway
 spec:
   ports:
-  - name: "8080"
+  - name: "http"
     port: 8080
     targetPort: 8080
   selector:
-    io.kompose.service: api-gateway
+    shopping.demo.service: api-gateway
 status:
   loadBalancer: {}

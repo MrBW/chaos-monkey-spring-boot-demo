@@ -11,10 +11,8 @@ import org.springframework.web.client.RestTemplate;
  * @author Benjamin Wilms
  */
 @Configuration
-@EnableDiscoveryClient
 public class ApiGatewayConfiguration {
 
-    @LoadBalanced
     @Bean
     RestTemplate loadBalanceRestTemplate() {
         return new RestTemplate();

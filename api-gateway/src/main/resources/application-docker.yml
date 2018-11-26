@@ -6,7 +6,7 @@ spring:
     name: api-gateway
 rest:
   endpoint:
-    fashion: "http://fashion-bestseller/fashion/bestseller"
+    fashion: "http://fashion.shopping-demo:8082/fashion/bestseller"
     toys: "http://toys-bestseller/toys/bestseller/"
     hotdeals: "http://hotdeals/hotdeals"
 management:

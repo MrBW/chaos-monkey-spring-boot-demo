@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: shopping-demo
+  name: api-gateway
+spec:
+  replicas: 3
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        shopping.demo.service: api-gateway
+    spec:
+      containers:
+      - image: api-gateway:latest
+        name: api-gateway
+        ports:
+        - containerPort: 8080
+        resources: {}
+      restartPolicy: Always
+status: {}

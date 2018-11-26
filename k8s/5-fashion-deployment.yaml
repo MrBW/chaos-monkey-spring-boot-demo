@@ -2,23 +2,20 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   namespace: shopping-demo
-  name: api-gateway
-  labels:
-    io.kompose.service: api-gateway
+  name: fashion
 spec:
-  replicas: 1
+  replicas: 3
   strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        io.kompose.service: api-gateway
+        shopping.demo.service: fashion
     spec:
       containers:
-      - image: mrbwilms/api-gateway
-        name: api-gateway
+      - image: bestseller-fashion:latest
+        name: fashion
         ports:
-        - containerPort: 8080
+        - containerPort: 8082
         resources: {}
       restartPolicy: Always
 status: {}

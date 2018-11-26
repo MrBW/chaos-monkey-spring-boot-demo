@@ -113,7 +113,8 @@
                     <version>${docker-maven-plugin.version}</version>
 
                     <configuration>
-                        <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                        <repository>${project.artifactId}</repository>
+                        <!--repository>${docker.image.prefix}/${project.artifactId}</repository-->
                         <buildArgs>
                             <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
                             <SERVICE_NAME>${project.name}</SERVICE_NAME>
@@ -126,7 +127,7 @@
                             <phase>package</phase>
                             <goals>
                                 <goal>build</goal>
-                                <goal>push</goal>
+                                <!--goal>push</goal-->
                             </goals>
                         </execution>
                     </executions>
