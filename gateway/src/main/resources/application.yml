@@ -5,3 +5,11 @@ management:
         include: '*'
 server:
   port: 8070
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          lowerCaseServiceId: true
