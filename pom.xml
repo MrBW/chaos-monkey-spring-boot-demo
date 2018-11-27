@@ -11,7 +11,6 @@
         <module>hot-deals</module>
         <module>bestseller-fashion</module>
         <module>bestseller-toys</module>
-        <module>api-gateway</module>
         <module>gateway</module>
         <module>shared</module>
         <module>eureka-server</module>
@@ -31,6 +30,10 @@
         <spring-cloud.version>Finchley.SR2</spring-cloud.version>
         <lombok.version>1.16.20</lombok.version>
         <chaos-monkey-spring-boot.version>2.0.1</chaos-monkey-spring-boot.version>
+
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <spring-boot-maven-plugin.version>2.0.6.RELEASE</spring-boot-maven-plugin.version>
+
     </properties>
 
     <dependencyManagement>
@@ -98,6 +101,8 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot-maven-plugin.version}</version>
+
                     <executions>
                         <execution>
                             <goals>
@@ -106,6 +111,16 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>8</source>
+                        <target>8</target>
+                    </configuration>
+                </plugin>
+
 
                 <plugin>
                     <groupId>com.spotify</groupId>
