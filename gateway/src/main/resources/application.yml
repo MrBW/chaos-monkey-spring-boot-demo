@@ -1,10 +1,5 @@
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
 server:
-  port: 8070
+  port: 8080
 spring:
   application:
     name: gateway
@@ -13,3 +8,32 @@ spring:
       discovery:
         locator:
           lowerCaseServiceId: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+hystrix:
+  metrics:
+    enabled: true
+  command:
+    fashion:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 200
+    hotdeals:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 200
+    toys:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 200
+rest:
+  endpoint:
+    fashion: "http://localhost:8082/fashion/bestseller"
+    toys: "http://localhost:8081/toys/bestseller"
+    hotdeals: "http://localhost:8083/hotdeals"

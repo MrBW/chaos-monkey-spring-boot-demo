@@ -1,0 +1,9 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/
+rest:
+  endpoint:
+    fashion: "http://fashion:8082/fashion/bestseller"
+    toys: "http://toys:8081/toys/bestseller"
+    hotdeals: "http://hot-deals:8083/hotdeals"

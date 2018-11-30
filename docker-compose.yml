@@ -1,13 +1,13 @@
 version: '3.2'
 
 services:
-#  docker-base-image:
-#    build: docker-base-image/
-#    image: docker-base-image
+  docker-base-image:
+    build: docker-base-image/
+    image: docker-base-image
 
-#  chaostoolkit:
-#    build: chaostoolkit-base/
-#    tty: true
+  chaostoolkit:
+    build: chaostoolkit-base/
+    tty: true
 
   chaoshub:
     image: chaostoolkit/chaoshub:0.1.2
@@ -15,27 +15,20 @@ services:
     - "8888:8080"
     tty: true
 
-  api-gateway:
-    image: api-gateway
+  gateway:
+    image: gateway
     ports:
     - "8080:8080"
 
   fashion:
     image: bestseller-fashion
     ports:
-    - "8082"
-    deploy:
-      mode: replicated
-      replicas: 3
-      endpoint_mode: dnsrr
+    - "8082:8082"
+
   toys:
     image: bestseller-toys
     ports:
-    - "8081"
-    deploy:
-      mode: replicated
-      replicas: 3
-      endpoint_mode: dnsrr
+    - "8081:8081"
 
   hot-deals:
     image: hot-deals

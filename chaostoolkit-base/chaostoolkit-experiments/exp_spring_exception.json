@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "title": "Exploring assumptions if a dependency starts responding slowly",
+  "title": "Exploring assumptions if a dependency throws exceptions",
   "description": "Uses the Spring Chaos Monkey to manipulate a service",
   "tags": [
     "service",
@@ -43,8 +43,8 @@
             "level": 1,
             "latencyRangeStart": 5000,
             "latencyRangeEnd": 10000,
-            "latencyActive": true,
-            "exceptionsActive": false,
+            "latencyActive": false,
+            "exceptionsActive": true,
             "killApplicationActive": false
           }
         },
