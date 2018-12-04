@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.3'
 
 services:
   docker-base-image:
@@ -23,7 +23,7 @@ services:
   fashion:
     image: bestseller-fashion
     ports:
-    - "8082:8082"
+    - 8090-8091:8082
 
   toys:
     image: bestseller-toys

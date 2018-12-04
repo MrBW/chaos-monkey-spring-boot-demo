@@ -22,16 +22,31 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 200
+    fashionLoadBalanced:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 400
     hotdeals:
       execution:
         isolation:
           thread:
             timeoutInMilliseconds: 200
+    hotdealsLoadBalanced:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 400
     toys:
       execution:
         isolation:
           thread:
             timeoutInMilliseconds: 200
+    toysLoadBalanced:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 400
 rest:
   endpoint:
     fashion: "http://localhost:8082/fashion/bestseller"

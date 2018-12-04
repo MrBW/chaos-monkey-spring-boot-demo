@@ -42,6 +42,7 @@ public class StartPageController implements ApplicationListener<WebServerInitial
         if (headers.containsKey("fallback") && headers.get("fallback").contains("true")) {
             return Mono.just(new ProductResponse(ResponseType.FALLBACK, Collections.emptyList()));
         }
+
         return clientResponse.bodyToFlux(productParameterizedTypeReference).collectList()
                 .flatMap(products -> Mono.just(new ProductResponse(ResponseType.REMOTE_SERVICE, products)));
     };
@@ -78,20 +79,35 @@ public class StartPageController implements ApplicationListener<WebServerInitial
         return aggregateResults(start, hotdeals, fashionBestSellers, toysBestSellers);
     }
 
-    @GetMapping("/startpage/retry")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @GetMapping("/startpage/lb")
     public Mono<Startpage> getStartpageRetry() {
         long start = System.currentTimeMillis();
-        Mono<ProductResponse> hotdeals = client.get().uri("/retry/hotdeals").exchange().flatMap(responseProcessor)
+        Mono<ProductResponse> hotdeals = client.get().uri("/lb/hotdeals").exchange().flatMap(responseProcessor)
                 .onErrorResume(t -> {
                     t.printStackTrace();
                     return Mono.just(errorResponse);
                 });
-        Mono<ProductResponse> fashionBestSellers = client.get().uri("/retry/fashion/bestseller").exchange().flatMap(responseProcessor)
+        Mono<ProductResponse> fashionBestSellers = client.get().uri("/lb/fashion/bestseller").exchange().flatMap(responseProcessor)
                 .onErrorResume(t -> {
                     t.printStackTrace();
                     return Mono.just(errorResponse);
                 });
-        Mono<ProductResponse> toysBestSellers = client.get().uri("/retry/toys/bestseller").exchange().flatMap(responseProcessor)
+        Mono<ProductResponse> toysBestSellers = client.get().uri("/lb/toys/bestseller").exchange().flatMap(responseProcessor)
                 .onErrorResume(t -> {
                     t.printStackTrace();
                     return Mono.just(errorResponse);
@@ -115,6 +131,7 @@ public class StartPageController implements ApplicationListener<WebServerInitial
             p.setStatusToys(toys.getResponseType().name());
             // Request duration
             p.setDuration(System.currentTimeMillis() - start);
+
             return Mono.just(p);
         });
         return page;

@@ -17,7 +17,8 @@ RUN \
   apt-get -y upgrade && \
   apt-get -y install nano && \
   apt-get -y install inetutils-ping && \
-  apt-get -y install curl
+  apt-get -y install curl && \
+  apt-get -y install jq
 
 RUN chmod a+x /root/install-chaos.sh
 RUN . /root/install-chaos.sh
