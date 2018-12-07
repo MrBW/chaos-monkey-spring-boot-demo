@@ -8,6 +8,11 @@ spring:
       discovery:
         locator:
           lowerCaseServiceId: true
+  zipkin:
+    sender:
+      type: web
+    base-url: http://jaegertracing:9411
+
 management:
   endpoints:
     web:

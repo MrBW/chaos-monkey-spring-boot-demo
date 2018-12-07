@@ -28,6 +28,8 @@
         <java.version>1.8</java.version>
         <spring-boot-dependencies.version>2.0.6.RELEASE</spring-boot-dependencies.version>
         <spring-cloud.version>Finchley.SR2</spring-cloud.version>
+        <spring-cloud-sleuth.version>2.0.2.RELEASE</spring-cloud-sleuth.version>
+        <spring-cloud-open-tracing.version>1.0.1</spring-cloud-open-tracing.version>
         <lombok.version>1.16.20</lombok.version>
         <chaos-monkey-spring-boot.version>2.0.1</chaos-monkey-spring-boot.version>
 
@@ -53,6 +55,12 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-sleuth</artifactId>
+                <version>${spring-cloud-sleuth.version}</version>
+            </dependency>
             <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>chaos-monkey-spring-boot</artifactId>
@@ -72,6 +80,17 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
                 <version>${spring-boot-dependencies.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.opentracing.contrib</groupId>
+                <artifactId>opentracing-spring-jaeger-cloud-starter</artifactId>
+                <version>${spring-cloud-open-tracing.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.opentracing.contrib</groupId>
+                <artifactId>opentracing-spring-jaeger-web-starter</artifactId>
+                <version>${spring-cloud-open-tracing.version}</version>
             </dependency>
 
             <dependency>

@@ -1,5 +1,14 @@
 server:
   port: 8083
+spring:
+  profiles:
+    active: chaos-monkey
+  application:
+    name: hotdeals
+  zipkin:
+    base-url: http://jaegertracing:9411
+    sender:
+      type: web
 
 management:
   endpoint:
@@ -17,11 +26,6 @@ chaos:
       service: false
     assaults:
       latency-active: false
-spring:
-  profiles:
-    active: chaos-monkey
-  application:
-    name: hotdeals
 eureka:
   client:
     serviceUrl:

@@ -8,6 +8,7 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,7 +45,7 @@ public class GatewayApplication {
     @Bean
     public RouteLocator routes(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("hotedeals", p -> p.path("/hotdeals**")
+                .route("hotdeals", p -> p.path("/hotdeals**")
                         .filters(f ->
                                 f.hystrix(c -> c.setName("hotdeals").setFallbackUri("forward:/fallback")))
                         .uri(urlHotDeals))
@@ -58,36 +59,20 @@ public class GatewayApplication {
                         .uri(urlToys))
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 // Load-balanced routes
                 .route("loadbalanced-hotdeals", p -> p.path("/lb/hotdeals**")
-                        .filters(f -> f.retry(1).hystrix(c -> c.setName("hotdeals").setFallbackUri("forward:/fallback"))
+                        .filters(f -> f.retry(config -> config.setRetries(2).setSeries(HttpStatus.Series.SERVER_ERROR)
+                        ).hystrix(c -> c.setName("hotdeals").setFallbackUri("forward:/fallback"))
                                 .rewritePath("(\\/lb)", ""))
                         .uri("lb://hotdeals"))
 
                 .route("loadbalanced-fashion", p -> p.path("/lb/fashion/**")
-                        .filters(f -> f.retry(1).hystrix(c -> c.setName("fashion").setFallbackUri("forward:/fallback"))
+                        .filters(f -> f.hystrix(c -> c.setName("fashion").setFallbackUri("forward:/fallback"))
                                 .rewritePath("(\\/lb)", ""))
                         .uri("lb://fashion-bestseller"))
 
                 .route("loadbalanced-toys", p -> p.path("/lb/toys/**")
-                        .filters(f -> f.retry(1).hystrix(c -> c.setName("toys").setFallbackUri("forward:/fallback"))
+                        .filters(f -> f.hystrix(c -> c.setName("toys").setFallbackUri("forward:/fallback"))
                                 .rewritePath("(\\/lb)", ""))
                         .uri("lb://toys-bestseller"))
                 .build();
