@@ -7,6 +7,7 @@ import com.example.chaos.monkey.shopping.gateway.domain.Startpage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.context.WebServerInitializedEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,7 @@ import java.util.function.Function;
  * @author Ryan Baxter
  */
 @RestController
-public class StartPageController implements ApplicationListener<WebServerInitializedEvent> {
+public class StartPageController {
 
     @Value("${rest.endpoint.fashion}")
     private String urlFashion;
@@ -32,6 +33,9 @@ public class StartPageController implements ApplicationListener<WebServerInitial
 
     @Value("${rest.endpoint.hotdeals}")
     private String urlHotDeals;
+
+    @Value("${server.port}")
+    private int serverPort;
 
     private ParameterizedTypeReference<Product> productParameterizedTypeReference =
             new ParameterizedTypeReference<Product>() {
@@ -46,7 +50,6 @@ public class StartPageController implements ApplicationListener<WebServerInitial
         return clientResponse.bodyToFlux(productParameterizedTypeReference).collectList()
                 .flatMap(products -> Mono.just(new ProductResponse(ResponseType.REMOTE_SERVICE, products)));
     };
-    private WebClient client;
     private ProductResponse errorResponse;
 
     public StartPageController() {
@@ -59,17 +62,17 @@ public class StartPageController implements ApplicationListener<WebServerInitial
     @GetMapping("/startpage")
     public Mono<Startpage> getStartpage() {
         long start = System.currentTimeMillis();
-        Mono<ProductResponse> hotdeals = client.get().uri("/hotdeals").exchange().flatMap(responseProcessor)
+        Mono<ProductResponse> hotdeals = webClient().get().uri("/hotdeals").exchange().flatMap(responseProcessor)
                 .onErrorResume(t -> {
                     t.printStackTrace();
                     return Mono.just(errorResponse);
                 });
-        Mono<ProductResponse> fashionBestSellers = client.get().uri("/fashion/bestseller").exchange().flatMap(responseProcessor)
+        Mono<ProductResponse> fashionBestSellers = webClient().get().uri("/fashion/bestseller").exchange().flatMap(responseProcessor)
                 .onErrorResume(t -> {
                     t.printStackTrace();
                     return Mono.just(errorResponse);
                 });
-        Mono<ProductResponse> toysBestSellers = client.get().uri("/toys/bestseller").exchange().flatMap(responseProcessor)
+        Mono<ProductResponse> toysBestSellers = webClient().get().uri("/toys/bestseller").exchange().flatMap(responseProcessor)
                 .onErrorResume(t -> {
                     t.printStackTrace();
                     return Mono.just(errorResponse);
@@ -77,6 +80,11 @@ public class StartPageController implements ApplicationListener<WebServerInitial
 
 
         return aggregateResults(start, hotdeals, fashionBestSellers, toysBestSellers);
+    }
+
+    @Bean
+    public WebClient webClient() {
+        return WebClient.builder().baseUrl("http://localhost:" + serverPort).build();
     }
 
 
@@ -97,17 +105,17 @@ public class StartPageController implements ApplicationListener<WebServerInitial
     @GetMapping("/startpage/lb")
     public Mono<Startpage> getStartpageRetry() {
         long start = System.currentTimeMillis();
-        Mono<ProductResponse> hotdeals = client.get().uri("/lb/hotdeals").exchange().flatMap(responseProcessor)
+        Mono<ProductResponse> hotdeals = webClient().get().uri("/lb/hotdeals").exchange().flatMap(responseProcessor)
                 .onErrorResume(t -> {
                     t.printStackTrace();
                     return Mono.just(errorResponse);
                 });
-        Mono<ProductResponse> fashionBestSellers = client.get().uri("/lb/fashion/bestseller").exchange().flatMap(responseProcessor)
+        Mono<ProductResponse> fashionBestSellers = webClient().get().uri("/lb/fashion/bestseller").exchange().flatMap(responseProcessor)
                 .onErrorResume(t -> {
                     t.printStackTrace();
                     return Mono.just(errorResponse);
                 });
-        Mono<ProductResponse> toysBestSellers = client.get().uri("/lb/toys/bestseller").exchange().flatMap(responseProcessor)
+        Mono<ProductResponse> toysBestSellers = webClient().get().uri("/lb/toys/bestseller").exchange().flatMap(responseProcessor)
                 .onErrorResume(t -> {
                     t.printStackTrace();
                     return Mono.just(errorResponse);
@@ -135,10 +143,5 @@ public class StartPageController implements ApplicationListener<WebServerInitial
             return Mono.just(p);
         });
         return page;
-    }
-
-    @Override
-    public void onApplicationEvent(WebServerInitializedEvent event) {
-        this.client = WebClient.builder().baseUrl("http://localhost:" + event.getWebServer().getPort()).build();
     }
 }

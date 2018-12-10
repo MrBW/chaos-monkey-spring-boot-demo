@@ -12,6 +12,9 @@ spring:
     base-url: http://jaegertracing:9411
     sender:
       type: web
+  sleuth:
+    sampler:
+      probability: 1.0
 
 # Configure Chaos Monkey - enabled = false
 chaos:
