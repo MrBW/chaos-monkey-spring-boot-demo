@@ -11,7 +11,7 @@ spring:
   zipkin:
     sender:
       type: web
-    base-url: http://jaegertracing:9411
+    base-url: http://zipkin-server:9411
   sleuth:
     sampler:
       probability: 1.0

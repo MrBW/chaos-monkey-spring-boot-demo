@@ -23,7 +23,7 @@ spring:
   application:
     name: fashion-bestseller
   zipkin:
-    base-url: http://jaegertracing:9411
+    base-url: http://zipkin-server:9411
     sender:
       type: web
   sleuth:
