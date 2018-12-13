@@ -43,7 +43,7 @@
             "level": 1,
             "latencyRangeStart": 5000,
             "latencyRangeEnd": 10000,
-            "latencyActive": true,
+            "latencyActive": false,
             "exceptionsActive": true,
             "killApplicationActive": false
           }

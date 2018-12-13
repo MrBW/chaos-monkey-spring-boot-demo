@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
+import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -59,20 +60,43 @@ public class GatewayApplication {
                         .uri(urlToys))
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 // Load-balanced routes
                 .route("loadbalanced-hotdeals", p -> p.path("/lb/hotdeals**")
-                        .filters(f -> f.retry(config -> config.setRetries(2).setSeries(HttpStatus.Series.SERVER_ERROR)
-                        ).hystrix(c -> c.setName("hotdeals").setFallbackUri("forward:/fallback"))
+                        .filters(f -> f.retry(c -> c.setRetries(1).setSeries(HttpStatus.Series.SERVER_ERROR))
+                                .hystrix(c -> c.setName("hotdeals").setFallbackUri("forward:/fallback"))
                                 .rewritePath("(\\/lb)", ""))
                         .uri("lb://hotdeals"))
 
                 .route("loadbalanced-fashion", p -> p.path("/lb/fashion/**")
-                        .filters(f -> f.hystrix(c -> c.setName("fashion").setFallbackUri("forward:/fallback"))
+                        .filters(f -> f.retry(c -> c.setRetries(1).setSeries(HttpStatus.Series.SERVER_ERROR))
+                                .hystrix(c -> c.setName("fashion").setFallbackUri("forward:/fallback"))
                                 .rewritePath("(\\/lb)", ""))
                         .uri("lb://fashion-bestseller"))
 
                 .route("loadbalanced-toys", p -> p.path("/lb/toys/**")
-                        .filters(f -> f.hystrix(c -> c.setName("toys").setFallbackUri("forward:/fallback"))
+                        .filters(f -> f.retry(c -> c.setRetries(1).setSeries(HttpStatus.Series.SERVER_ERROR))
+                                .hystrix(c -> c.setName("toys").setFallbackUri("forward:/fallback"))
                                 .rewritePath("(\\/lb)", ""))
                         .uri("lb://toys-bestseller"))
                 .build();

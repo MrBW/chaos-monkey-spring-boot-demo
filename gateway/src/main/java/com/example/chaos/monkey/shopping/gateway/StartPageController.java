@@ -5,8 +5,6 @@ import com.example.chaos.monkey.shopping.gateway.domain.ProductResponse;
 import com.example.chaos.monkey.shopping.gateway.domain.ResponseType;
 import com.example.chaos.monkey.shopping.gateway.domain.Startpage;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.context.WebServerInitializedEvent;
-import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
@@ -45,8 +43,11 @@ public class StartPageController {
         HttpHeaders headers = clientResponse.headers().asHttpHeaders();
         if (headers.containsKey("fallback") && headers.get("fallback").contains("true")) {
             return Mono.just(new ProductResponse(ResponseType.FALLBACK, Collections.emptyList()));
-        }
 
+        } else if (clientResponse.statusCode().isError()) {
+            // HTTP Error Codes are not handled by Hystrix!?
+            return Mono.just(new ProductResponse(ResponseType.ERROR, Collections.emptyList()));
+        }
         return clientResponse.bodyToFlux(productParameterizedTypeReference).collectList()
                 .flatMap(products -> Mono.just(new ProductResponse(ResponseType.REMOTE_SERVICE, products)));
     };
@@ -86,20 +87,6 @@ public class StartPageController {
     public WebClient webClient() {
         return WebClient.builder().baseUrl("http://localhost:" + serverPort).build();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     @GetMapping("/startpage/lb")
