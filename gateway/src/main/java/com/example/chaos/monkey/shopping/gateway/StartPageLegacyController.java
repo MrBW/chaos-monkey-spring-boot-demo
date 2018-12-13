@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.function.Function;
 
 /**
- * @author Ryan Baxter
+ * @author Ryan Baxter, Benjamin Wilms
  */
 @RestController
 public class StartPageLegacyController {

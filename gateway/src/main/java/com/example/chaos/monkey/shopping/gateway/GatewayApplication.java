@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,6 +30,9 @@ public class GatewayApplication {
 
     @Value("${rest.endpoint.hotdeals}")
     private String urlHotDeals;
+
+    @Value("${server.port}")
+    private int serverPort;
 
     public static void main(String[] args) {
         SpringApplication.run(GatewayApplication.class, args);
@@ -102,4 +106,8 @@ public class GatewayApplication {
                 .build();
     }
 
+    @Bean
+    public WebClient webClient() {
+        return WebClient.builder().baseUrl("http://localhost:" + serverPort).build();
+    }
 }

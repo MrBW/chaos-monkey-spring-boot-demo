@@ -32,8 +32,16 @@ public class StartPageController {
     @Value("${rest.endpoint.hotdeals}")
     private String urlHotDeals;
 
-    @Value("${server.port}")
-    private int serverPort;
+    private ProductResponse errorResponse;
+    private WebClient webClient;
+
+    public StartPageController(WebClient webClient) {
+        this.webClient = webClient;
+
+        this.errorResponse = new ProductResponse();
+        errorResponse.setResponseType(ResponseType.ERROR);
+        errorResponse.setProducts(Collections.emptyList());
+    }
 
     private ParameterizedTypeReference<Product> productParameterizedTypeReference =
             new ParameterizedTypeReference<Product>() {
@@ -41,6 +49,7 @@ public class StartPageController {
 
     private Function<ClientResponse, Mono<ProductResponse>> responseProcessor = clientResponse -> {
         HttpHeaders headers = clientResponse.headers().asHttpHeaders();
+
         if (headers.containsKey("fallback") && headers.get("fallback").contains("true")) {
             return Mono.just(new ProductResponse(ResponseType.FALLBACK, Collections.emptyList()));
 
@@ -48,32 +57,25 @@ public class StartPageController {
             // HTTP Error Codes are not handled by Hystrix!?
             return Mono.just(new ProductResponse(ResponseType.ERROR, Collections.emptyList()));
         }
+
         return clientResponse.bodyToFlux(productParameterizedTypeReference).collectList()
                 .flatMap(products -> Mono.just(new ProductResponse(ResponseType.REMOTE_SERVICE, products)));
     };
-    private ProductResponse errorResponse;
-
-    public StartPageController() {
-
-        this.errorResponse = new ProductResponse();
-        errorResponse.setResponseType(ResponseType.ERROR);
-        errorResponse.setProducts(Collections.emptyList());
-    }
 
     @GetMapping("/startpage")
     public Mono<Startpage> getStartpage() {
         long start = System.currentTimeMillis();
-        Mono<ProductResponse> hotdeals = webClient().get().uri("/hotdeals").exchange().flatMap(responseProcessor)
+        Mono<ProductResponse> hotdeals = webClient.get().uri("/hotdeals").exchange().flatMap(responseProcessor)
                 .onErrorResume(t -> {
                     t.printStackTrace();
                     return Mono.just(errorResponse);
                 });
-        Mono<ProductResponse> fashionBestSellers = webClient().get().uri("/fashion/bestseller").exchange().flatMap(responseProcessor)
+        Mono<ProductResponse> fashionBestSellers = webClient.get().uri("/fashion/bestseller").exchange().flatMap(responseProcessor)
                 .onErrorResume(t -> {
                     t.printStackTrace();
                     return Mono.just(errorResponse);
                 });
-        Mono<ProductResponse> toysBestSellers = webClient().get().uri("/toys/bestseller").exchange().flatMap(responseProcessor)
+        Mono<ProductResponse> toysBestSellers = webClient.get().uri("/toys/bestseller").exchange().flatMap(responseProcessor)
                 .onErrorResume(t -> {
                     t.printStackTrace();
                     return Mono.just(errorResponse);
@@ -83,26 +85,21 @@ public class StartPageController {
         return aggregateResults(start, hotdeals, fashionBestSellers, toysBestSellers);
     }
 
-    @Bean
-    public WebClient webClient() {
-        return WebClient.builder().baseUrl("http://localhost:" + serverPort).build();
-    }
-
 
     @GetMapping("/startpage/lb")
     public Mono<Startpage> getStartpageRetry() {
         long start = System.currentTimeMillis();
-        Mono<ProductResponse> hotdeals = webClient().get().uri("/lb/hotdeals").exchange().flatMap(responseProcessor)
+        Mono<ProductResponse> hotdeals = webClient.get().uri("/lb/hotdeals").exchange().flatMap(responseProcessor)
                 .onErrorResume(t -> {
                     t.printStackTrace();
                     return Mono.just(errorResponse);
                 });
-        Mono<ProductResponse> fashionBestSellers = webClient().get().uri("/lb/fashion/bestseller").exchange().flatMap(responseProcessor)
+        Mono<ProductResponse> fashionBestSellers = webClient.get().uri("/lb/fashion/bestseller").exchange().flatMap(responseProcessor)
                 .onErrorResume(t -> {
                     t.printStackTrace();
                     return Mono.just(errorResponse);
                 });
-        Mono<ProductResponse> toysBestSellers = webClient().get().uri("/lb/toys/bestseller").exchange().flatMap(responseProcessor)
+        Mono<ProductResponse> toysBestSellers = webClient.get().uri("/lb/toys/bestseller").exchange().flatMap(responseProcessor)
                 .onErrorResume(t -> {
                     t.printStackTrace();
                     return Mono.just(errorResponse);

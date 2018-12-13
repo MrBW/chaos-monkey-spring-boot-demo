@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "title": "Exploring if a dependency starts responding slowly or throws exceptions",
+  "title": "Exploring if a dependency starts responding slowly",
   "description": "Uses the Spring Chaos Monkey to manipulate a service",
   "tags": [
     "service",

@@ -15,10 +15,10 @@ services:
     - "8888:8080"
     tty: true
 
-  #zipkin-server:
-   # image: openzipkin/zipkin
-    #ports:
-     # - "9411:9411"
+  zipkin-server:
+    image: openzipkin/zipkin
+    ports:
+    - "9411:9411"
 
   gateway:
     image: gateway
