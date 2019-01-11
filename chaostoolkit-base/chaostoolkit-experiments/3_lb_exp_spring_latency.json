@@ -6,6 +6,20 @@
     "service",
     "spring"
   ],
+  "configuration": {
+    "tracing_provider": "jaeger",
+    "tracing_host": "zipkin-server",
+    "tracing_port": 6831
+  },
+  "controls": [
+    {
+      "name": "opentracing",
+      "provider": {
+        "type": "python",
+        "module": "chaostracing.control"
+      }
+    }
+  ],
   "steady-state-hypothesis": {
     "probes": [
       {

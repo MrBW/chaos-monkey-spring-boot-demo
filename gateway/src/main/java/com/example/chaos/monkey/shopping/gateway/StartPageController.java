@@ -41,6 +41,8 @@ public class StartPageController {
     @Value("${rest.endpoint.hotdeals}")
     private String urlHotDeals;
 
+    private String initialSpan = "chaostoolkit";
+
     private RestTemplate restClient;
 
     private ProductResponse errorResponse;
@@ -60,6 +62,9 @@ public class StartPageController {
 
     @RequestMapping(value = {"/startpage", "/startpage/{version}"}, method = RequestMethod.GET)
     public Mono<Startpage> delegateStartpageRequest(@PathVariable Optional<String> version) {
+
+        System.out.println("Current Span (startpage): " + this.tracer.currentSpan());
+
         if (version.isPresent()) {
             if (version.get().equalsIgnoreCase("cb")) {
                 return getStartpageCircuitBreaker();
@@ -108,7 +113,7 @@ public class StartPageController {
                         return Mono.just(errorResponse);
                     });
 
-            return aggregateResults(start, hotdeals, fashionBestSellers, toysBestSellers, newSpan);
+            return aggregateResults(start, hotdeals, fashionBestSellers, toysBestSellers);
         } finally {
             newSpan.finish();
         }
@@ -120,11 +125,16 @@ public class StartPageController {
     private Mono<Startpage> getStartpageLoadBalanced() {
         long start = System.currentTimeMillis();
 
-        Span newSpan = this.tracer.nextSpan().name("allProductsLoadBalanced");
-        newSpan.tag("load.balanced", "true");
-        newSpan.tag("circuit.breaker", "true");
 
-        try (Tracer.SpanInScope ws = this.tracer.withSpanInScope(newSpan.start())) {
+        Span continuedSpan = this.tracer.toSpan(this.tracer.currentSpan().context());
+
+        try {
+
+            continuedSpan.name("allProductsLoadBalanced");
+            continuedSpan.tag("load.balanced", "true");
+            continuedSpan.tag("circuit.breaker", "true");
+
+
             Mono<ProductResponse> hotdeals = webClient.get().uri("/lb/hotdeals").exchange().flatMap(responseProcessor)
                     .onErrorResume(t -> {
                         t.printStackTrace();
@@ -141,10 +151,10 @@ public class StartPageController {
                         return Mono.just(errorResponse);
                     });
 
+            return aggregateResults(start, hotdeals, fashionBestSellers, toysBestSellers);
 
-            return aggregateResults(start, hotdeals, fashionBestSellers, toysBestSellers, newSpan);
         } finally {
-            newSpan.finish();
+            continuedSpan.flush();
         }
     }
 
@@ -173,10 +183,6 @@ public class StartPageController {
             // Request duration
             page.setDuration(System.currentTimeMillis() - start);
 
-            newSpan.tag("product.size.fashion", String.valueOf(page.getFashionResponse().getProducts().size()));
-            newSpan.tag("product.size.toys", String.valueOf(page.getToysResponse().getProducts().size()));
-            newSpan.tag("product.size.hotdeals", String.valueOf(page.getHotDealsResponse().getProducts().size()));
-
             return Mono.just(page);
         } finally {
             newSpan.finish();
@@ -184,7 +190,7 @@ public class StartPageController {
 
     }
 
-    private Mono<Startpage> aggregateResults(long start, Mono<ProductResponse> hotdeals, Mono<ProductResponse> fashionBestSellers, Mono<ProductResponse> toysBestSellers, Span newSpan) {
+    private Mono<Startpage> aggregateResults(long start, Mono<ProductResponse> hotdeals, Mono<ProductResponse> fashionBestSellers, Mono<ProductResponse> toysBestSellers) {
         Mono<Startpage> page = Mono.zip(hotdeals, fashionBestSellers, toysBestSellers).flatMap(t -> {
             Startpage p = new Startpage();
             ProductResponse deals = t.getT1();
@@ -198,10 +204,6 @@ public class StartPageController {
             p.setStatusToys(toys.getResponseType().name());
             // Request duration
             p.setDuration(System.currentTimeMillis() - start);
-
-            newSpan.tag("product.size.fashion", String.valueOf(fashion.getProducts().size()));
-            newSpan.tag("product.size.toys", String.valueOf(toys.getProducts().size()));
-            newSpan.tag("product.size.hotdeals", String.valueOf(deals.getProducts().size()));
 
             return Mono.just(p);
         });
