@@ -9,7 +9,7 @@ spring:
   application:
     name: toys-bestseller
   zipkin:
-    base-url: http://zipkin-server:9411
+    base-url: http://jaeger-server:9411
     sender:
       type: web
   sleuth:

@@ -26,15 +26,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <spring-boot-dependencies.version>2.0.6.RELEASE</spring-boot-dependencies.version>
-        <spring-cloud.version>Finchley.SR2</spring-cloud.version>
-        <spring-cloud-sleuth.version>2.0.2.RELEASE</spring-cloud-sleuth.version>
+        <spring-boot-dependencies.version>2.1.2.RELEASE</spring-boot-dependencies.version>
+        <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+        <spring-cloud-sleuth.version>2.1.0.RELEASE</spring-cloud-sleuth.version>
         <spring-cloud-open-tracing.version>1.0.1</spring-cloud-open-tracing.version>
         <lombok.version>1.16.20</lombok.version>
-        <chaos-monkey-spring-boot.version>2.0.1</chaos-monkey-spring-boot.version>
+        <chaos-monkey-spring-boot.version>2.0.2</chaos-monkey-spring-boot.version>
 
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
-        <spring-boot-maven-plugin.version>2.0.6.RELEASE</spring-boot-maven-plugin.version>
+        <spring-boot-maven-plugin.version>2.1.2.RELEASE</spring-boot-maven-plugin.version>
 
     </properties>
 

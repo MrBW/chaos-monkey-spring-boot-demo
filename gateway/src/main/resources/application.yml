@@ -11,7 +11,7 @@ spring:
   zipkin:
     sender:
       type: web
-    base-url: http://zipkin-server:9411
+    base-url: http://jaeger-server:9411
   sleuth:
     sampler:
       probability: 1.0
@@ -44,3 +44,8 @@ rest:
     fashion: "http://localhost:8082/fashion/bestseller"
     toys: "http://localhost:8081/toys/bestseller"
     hotdeals: "http://localhost:8083/hotdeals"
+
+
+eureka:
+  client:
+    eureka-service-url-poll-interval-seconds: 1

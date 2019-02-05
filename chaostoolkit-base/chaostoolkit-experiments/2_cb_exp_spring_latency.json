@@ -8,7 +8,7 @@
   ],
   "configuration": {
     "tracing_provider": "jaeger",
-    "tracing_host": "zipkin-server",
+    "tracing_host": "jaeger-server",
     "tracing_port": 6831
   },
   "controls": [

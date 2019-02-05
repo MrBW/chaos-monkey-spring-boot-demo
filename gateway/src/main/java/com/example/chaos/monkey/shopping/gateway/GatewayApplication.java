@@ -78,19 +78,19 @@ public class GatewayApplication {
 
                 // Load-balanced routes
                 .route("loadbalanced-hotdeals", p -> p.path("/lb/hotdeals**")
-                        .filters(f -> f.retry(c -> c.setRetries(1).setSeries(HttpStatus.Series.SERVER_ERROR))
+                        .filters(f -> f.retry(c -> c.setRetries(2).setSeries(HttpStatus.Series.SERVER_ERROR))
                                 .hystrix(c -> c.setName("hotdeals").setFallbackUri("forward:/fallback"))
                                 .rewritePath("(\\/lb)", ""))
                         .uri("lb://hotdeals"))
 
                 .route("loadbalanced-fashion", p -> p.path("/lb/fashion/**")
-                        .filters(f -> f.retry(c -> c.setRetries(1).setSeries(HttpStatus.Series.SERVER_ERROR))
+                        .filters(f -> f.retry(c -> c.setRetries(2).setSeries(HttpStatus.Series.SERVER_ERROR))
                                 .hystrix(c -> c.setName("fashion").setFallbackUri("forward:/fallback"))
                                 .rewritePath("(\\/lb)", ""))
                         .uri("lb://fashion-bestseller"))
 
                 .route("loadbalanced-toys", p -> p.path("/lb/toys/**")
-                        .filters(f -> f.retry(c -> c.setRetries(1).setSeries(HttpStatus.Series.SERVER_ERROR))
+                        .filters(f -> f.retry(c -> c.setRetries(2).setSeries(HttpStatus.Series.SERVER_ERROR))
                                 .hystrix(c -> c.setName("toys").setFallbackUri("forward:/fallback"))
                                 .rewritePath("(\\/lb)", ""))
                         .uri("lb://toys-bestseller"))
