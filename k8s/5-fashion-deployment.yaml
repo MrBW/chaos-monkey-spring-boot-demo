@@ -4,7 +4,7 @@ metadata:
   namespace: shopping-demo
   name: fashion
 spec:
-  replicas: 3
+  replicas: 1
   strategy: {}
   template:
     metadata:
@@ -12,7 +12,7 @@ spec:
         shopping.demo.service: fashion
     spec:
       containers:
-      - image: bestseller-fashion:latest
+      - image: docker.io/mrbwilms/bestseller-fashion:latest
         name: fashion
         ports:
         - containerPort: 8082
