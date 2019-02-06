@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: shopping-demo
+  name: hotdeals
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        shopping.demo.service: hotdeals
+    spec:
+      containers:
+      - image: docker.io/mrbwilms/hot-deals:latest
+        name: hotdeals
+        ports:
+        - containerPort: 8083
+        resources: {}
+      restartPolicy: Always
+status: {}

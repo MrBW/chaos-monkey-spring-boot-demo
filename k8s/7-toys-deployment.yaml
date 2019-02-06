@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: shopping-demo
+  name: toys
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        shopping.demo.service: toys
+    spec:
+      containers:
+      - image: docker.io/mrbwilms/bestseller-toys:latest
+        name: toys
+        ports:
+        - containerPort: 8081
+        resources: {}
+      restartPolicy: Always
+status: {}
