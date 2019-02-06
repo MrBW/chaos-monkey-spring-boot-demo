@@ -24,3 +24,5 @@ target/
 
 # gnupg keyring
 /.gnupg
+
+/docker-base-image/instana.key

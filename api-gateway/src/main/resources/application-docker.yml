@@ -4,12 +4,11 @@ spring:
       base-path:
   application:
     name: api-gateway
-
 rest:
   endpoint:
-    fashion: "http://fashion:8082/fashion/bestseller"
-    toys: "http://toys:8081/toys/bestseller/"
-    hotdeals: "http://hot-deals:8083/hotdeals"
+    fashion: "http://fashion.shopping-demo:8082/fashion/bestseller"
+    toys: "http://toys-bestseller/toys/bestseller/"
+    hotdeals: "http://hotdeals/hotdeals"
 management:
   endpoints:
     web:
@@ -17,3 +16,7 @@ management:
         include: '*'
 server:
   port: 8080
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/

@@ -11,8 +11,9 @@
         <module>hot-deals</module>
         <module>bestseller-fashion</module>
         <module>bestseller-toys</module>
-        <module>api-gateway</module>
+        <module>gateway</module>
         <module>shared</module>
+        <module>eureka-server</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -25,8 +26,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <spring-boot-dependencies.version>2.0.5.RELEASE</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>2.1.2.RELEASE</spring-boot-dependencies.version>
+        <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+        <spring-cloud-sleuth.version>2.1.0.RELEASE</spring-cloud-sleuth.version>
+        <spring-cloud-open-tracing.version>1.0.1</spring-cloud-open-tracing.version>
         <lombok.version>1.16.20</lombok.version>
+        <chaos-monkey-spring-boot.version>2.0.2</chaos-monkey-spring-boot.version>
+
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <spring-boot-maven-plugin.version>2.1.2.RELEASE</spring-boot-maven-plugin.version>
+
     </properties>
 
     <dependencyManagement>
@@ -38,6 +47,24 @@
                 <version>${spring-boot-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-sleuth</artifactId>
+                <version>${spring-cloud-sleuth.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>chaos-monkey-spring-boot</artifactId>
+                <version>${chaos-monkey-spring-boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.netflix.hystrix</groupId>
@@ -53,6 +80,17 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
                 <version>${spring-boot-dependencies.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.opentracing.contrib</groupId>
+                <artifactId>opentracing-spring-jaeger-cloud-starter</artifactId>
+                <version>${spring-cloud-open-tracing.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.opentracing.contrib</groupId>
+                <artifactId>opentracing-spring-jaeger-web-starter</artifactId>
+                <version>${spring-cloud-open-tracing.version}</version>
             </dependency>
 
             <dependency>
@@ -82,6 +120,8 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot-maven-plugin.version}</version>
+
                     <executions>
                         <execution>
                             <goals>
@@ -90,6 +130,16 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>8</source>
+                        <target>8</target>
+                    </configuration>
+                </plugin>
+
 
                 <plugin>
                     <groupId>com.spotify</groupId>
@@ -98,6 +148,7 @@
 
                     <configuration>
                         <repository>${project.artifactId}</repository>
+                        <!--repository>${docker.image.prefix}/${project.artifactId}</repository-->
                         <buildArgs>
                             <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
                             <SERVICE_NAME>${project.name}</SERVICE_NAME>
@@ -110,6 +161,7 @@
                             <phase>package</phase>
                             <goals>
                                 <goal>build</goal>
+                                <!--goal>push</goal-->
                             </goals>
                         </execution>
                     </executions>

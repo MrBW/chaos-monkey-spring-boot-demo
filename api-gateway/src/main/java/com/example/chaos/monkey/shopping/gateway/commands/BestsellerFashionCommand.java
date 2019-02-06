@@ -3,6 +3,8 @@ package com.example.chaos.monkey.shopping.gateway.commands;
 import com.example.chaos.monkey.shopping.domain.Product;
 import com.example.chaos.monkey.shopping.gateway.domain.ProductResponse;
 import com.example.chaos.monkey.shopping.gateway.domain.ResponseType;
+import com.netflix.appinfo.InstanceInfo;
+import com.netflix.discovery.EurekaClient;
 import com.netflix.hystrix.*;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.slf4j.Logger;
@@ -45,6 +47,7 @@ public class BestsellerFashionCommand extends HystrixCommand<ProductResponse> {
 
         return response;
     }
+
 
     @Override
     protected ProductResponse getFallback() {

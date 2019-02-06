@@ -7,6 +7,7 @@ import com.example.chaos.monkey.shopping.gateway.commands.HotDealsCommand;
 import com.example.chaos.monkey.shopping.gateway.domain.ProductResponse;
 import com.example.chaos.monkey.shopping.gateway.domain.ResponseType;
 import com.example.chaos.monkey.shopping.gateway.domain.Startpage;
+import com.netflix.discovery.EurekaClient;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.exception.HystrixRuntimeException;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -26,8 +27,6 @@ import java.util.concurrent.Future;
 @RestController
 public class ApiGatewayRestController {
 
-    private MeterRegistry meterRegistry;
-
     private RestTemplate restTemplate;
 
     @Value("${rest.endpoint.fashion}")
@@ -38,13 +37,13 @@ public class ApiGatewayRestController {
 
     @Value("${rest.endpoint.hotdeals}")
     private String urlHotDeals;
+
     private HystrixCommandGroupKey hotdealsCommandKey;
     private HystrixCommandGroupKey toysCommandKey;
     private HystrixCommandGroupKey fashionCommandKey;
 
-    public ApiGatewayRestController(MeterRegistry meterRegistry) {
-        this.meterRegistry = meterRegistry;
-        this.restTemplate = new RestTemplateBuilder().build();
+    public ApiGatewayRestController(RestTemplate loadBalancedRestTemplate) {
+        this.restTemplate = loadBalancedRestTemplate;
 
         hotdealsCommandKey = HystrixCommandGroupKey.Factory.asKey("hotdeals");
         toysCommandKey = HystrixCommandGroupKey.Factory.asKey("toys");

@@ -1,0 +1,51 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          lowerCaseServiceId: true
+  zipkin:
+    sender:
+      type: web
+    base-url: http://jaeger-server:9411
+  sleuth:
+    sampler:
+      probability: 1.0
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+hystrix:
+  metrics:
+    enabled: true
+  command:
+    fashion:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 150
+    hotdeals:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 150
+    toys:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 150
+rest:
+  endpoint:
+    fashion: "http://localhost:8082/fashion/bestseller"
+    toys: "http://localhost:8081/toys/bestseller"
+    hotdeals: "http://localhost:8083/hotdeals"
+
+
+eureka:
+  client:
+    eureka-service-url-poll-interval-seconds: 1

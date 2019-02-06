@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: gateway
+  namespace: shopping-demo
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: gateway.workshop.demo
+      http:
+        paths:
+          - path: /gateway
+            backend:
+              serviceName: gateway
+              servicePort: 8080
