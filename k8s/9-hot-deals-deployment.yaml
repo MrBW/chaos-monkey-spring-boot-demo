@@ -2,14 +2,14 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   namespace: shopping-demo
-  name: hotdeals
+  name: hot-deals
 spec:
   replicas: 1
   strategy: {}
   template:
     metadata:
       labels:
-        shopping.demo.service: hotdeals
+        shopping.demo.service: hot-deals
     spec:
       containers:
       - image: docker.io/mrbwilms/hot-deals:latest

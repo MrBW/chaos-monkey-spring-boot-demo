@@ -2,10 +2,7 @@ package com.example.chaos.monkey.shopping.gateway;
 
 import brave.Tracer;
 import com.example.chaos.monkey.shopping.domain.Product;
-import com.netflix.hystrix.HystrixInvokable;
 import com.netflix.hystrix.exception.HystrixRuntimeException;
-import com.netflix.hystrix.strategy.HystrixPlugins;
-import com.netflix.hystrix.strategy.executionhook.HystrixCommandExecutionHook;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -81,19 +78,19 @@ public class GatewayApplication {
                         .filters(f -> f.retry(c -> c.setRetries(2).setSeries(HttpStatus.Series.SERVER_ERROR))
                                 .hystrix(c -> c.setName("hotdeals").setFallbackUri("forward:/fallback"))
                                 .rewritePath("(\\/lb)", ""))
-                        .uri("lb://hotdeals"))
+                        .uri(urlHotDeals))
 
                 .route("loadbalanced-fashion", p -> p.path("/lb/fashion/**")
                         .filters(f -> f.retry(c -> c.setRetries(2).setSeries(HttpStatus.Series.SERVER_ERROR))
                                 .hystrix(c -> c.setName("fashion").setFallbackUri("forward:/fallback"))
                                 .rewritePath("(\\/lb)", ""))
-                        .uri("lb://fashion-bestseller"))
+                        .uri(urlFashion))
 
                 .route("loadbalanced-toys", p -> p.path("/lb/toys/**")
                         .filters(f -> f.retry(c -> c.setRetries(2).setSeries(HttpStatus.Series.SERVER_ERROR))
                                 .hystrix(c -> c.setName("toys").setFallbackUri("forward:/fallback"))
                                 .rewritePath("(\\/lb)", ""))
-                        .uri("lb://toys-bestseller"))
+                        .uri(urlToys))
                 .build();
     }
 

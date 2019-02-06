@@ -2,13 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: shopping-demo
-  name: hotdeals
+  name: hot-deals
 spec:
   ports:
   - name: "http"
     port: 8083
     targetPort: 8083
   selector:
-    shopping.demo.service: hotdeals
+    shopping.demo.service: hot-deals
 status:
   loadBalancer: {}
