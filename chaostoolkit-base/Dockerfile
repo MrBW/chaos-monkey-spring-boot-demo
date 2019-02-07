@@ -18,8 +18,11 @@ RUN \
   apt-get -y install nano && \
   apt-get -y install inetutils-ping && \
   apt-get -y install curl && \
+  apt-get -y install openssh-server && \
   apt-get -y install jq
 
+RUN   echo "Some line to add to a file" >> /etc/sysctl.conf
+RUN   echo "Some line to add to a file" >> /etc/sysctl.conf
 RUN chmod a+x /root/install-chaos.sh
 RUN . /root/install-chaos.sh
 
@@ -32,8 +35,7 @@ ENV LANG=C.UTF-8
 WORKDIR /root
 
 RUN useradd -r -m -d /home/chaos -s /bin/bash -g root -G sudo -u 1000 chaos -p chaos
-USER chaos
-WORKDIR /home/chaos
+RUN usermod -aG sudo chaos
 
 # Define default command.
 CMD ["bash"]
