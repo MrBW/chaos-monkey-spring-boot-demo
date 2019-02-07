@@ -8,13 +8,6 @@ COPY config/settings.yaml /root/.chaostoolkit/settings.yaml
 
 ADD chaostoolkit-experiments/ /root
 
-RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 ubuntu -p "$(openssl passwd -1 ubuntu)"
-USER ubuntu
-
-# Define working directory.
-WORKDIR /root
-
-
 # Install.
 SHELL ["/bin/bash", "-c"]
 RUN \
@@ -35,6 +28,12 @@ ENV HOME /root
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
+# Define working directory.
+WORKDIR /root
+
+RUN useradd -r -m -d /home/chaos -s /bin/bash -g root -G sudo -u 1000 chaos -p chaos
+USER chaos
+WORKDIR /home/chaos
 
 # Define default command.
 CMD ["bash"]
