@@ -8,7 +8,7 @@ COPY config/settings.yaml /root/.chaostoolkit/settings.yaml
 
 ADD chaostoolkit-experiments/ /root
 
-RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 ubuntu
+RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 ubuntu -p "$(openssl passwd -1 ubuntu)"
 USER ubuntu
 
 # Define working directory.
