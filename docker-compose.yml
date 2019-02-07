@@ -1,12 +1,8 @@
 version: '3.3'
 
 services:
-  docker-base-image:
-    build: docker-base-image/
-    image: docker-base-image
-
   chaostoolkit:
-    build: chaostoolkit-base/
+    image: mrbwilms/chaostoolkit-base:latest
     tty: true
 
   chaoshub:

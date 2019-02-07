@@ -1,14 +1,14 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: gateway
+  name: chaostoolkit
   namespace: shopping-demo
 spec:
   rules:
-    - host: gateway.workshop.demo
+    - host: chaostoolkit.workshop.demo
       http:
         paths:
           - path: /
             backend:
-              serviceName: gateway
-              servicePort: 8080
+              serviceName: chaostoolkit
+              servicePort: 22

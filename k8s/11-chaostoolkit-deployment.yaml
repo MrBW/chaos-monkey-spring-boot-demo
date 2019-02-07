@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: shopping-demo
+  name: chaostoolkit
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        shopping.demo.service: chaostoolkit
+    spec:
+      containers:
+      - image: docker.io/mrbwilms/chaostoolkit:latest
+        name: chaostoolkit
+        ports:
+        - containerPort: 22
+        resources: {}
+        tty: true
+      restartPolicy: Always
+status: {}

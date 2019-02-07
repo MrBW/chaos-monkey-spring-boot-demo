@@ -4,9 +4,11 @@ export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 echo Install python3
 apt-get -y install python3 python3-venv
+apt-get -y install python3-dev
 echo Install pkill openssl
 apt-get -y install procps
 apt-get -y install openssl
+apt-get -y install build-essential
 echo Create a virtual environment
 python3 -m venv ~/.venvs/chaostk
 source  ~/.venvs/chaostk/bin/activate
@@ -21,3 +23,4 @@ echo Install ChaosToolkit plugin chaoshub
 pip install chaostoolkit-chaoshub
 pip install -U chaostoolkit-opentracing
 pip install chaostoolkit-opentracing[jaeger]
+pip install chaostoolkit-kubernetes

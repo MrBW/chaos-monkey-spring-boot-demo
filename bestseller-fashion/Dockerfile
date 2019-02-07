@@ -1,4 +1,4 @@
-FROM docker-base-image
+FROM mrbwilms/docker-base-image:latest
 ARG SERVICE_NAME
 ARG JAR_FILE
 
