@@ -1,5 +1,5 @@
 rest:
   endpoint:
-    fashion: "http://fashion.shopping-demo:8082/fashion/bestseller"
-    toys: "http://toys.shopping-demo:8081/toys/bestseller"
-    hotdeals: "http://hot-deals.shopping-demo:8083/hotdeals"
+    fashion: "http://fashion.shoppingdemo:8082/fashion/bestseller"
+    toys: "http://toys.shoppingdemo:8081/toys/bestseller"
+    hotdeals: "http://hot-deals.shoppingdemo:8083/hotdeals"

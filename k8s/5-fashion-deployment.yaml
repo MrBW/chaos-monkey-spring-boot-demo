@@ -1,15 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: shopping-demo
+  namespace: shoppingdemo
   name: fashion
+  labels:
+    app: shoppingdemo
 spec:
-  replicas: 1
-  strategy: {}
+  replicas: 2
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
   template:
     metadata:
       labels:
-        shopping.demo.service: fashion
+        app: fashion
     spec:
       containers:
       - image: docker.io/mrbwilms/bestseller-fashion:latest
@@ -17,7 +22,14 @@ spec:
         ports:
         - containerPort: 8082
         resources: {}
+        livenessProbe:
+          httpGet:
+            port: 8082
+            path: /actuator/health
+          initialDelaySeconds: 120
+          failureThreshold: 10
+          timeoutSeconds: 10
       restartPolicy: Always
   selector:
     matchLabels:
-      shopping.demo.service: fashion
+      app: fashion

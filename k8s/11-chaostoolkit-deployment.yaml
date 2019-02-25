@@ -1,14 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: shopping-demo
+  namespace: shoppingdemo
   name: chaostoolkit
+  labels:
+    app: shoppingdemo
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        shopping.demo.service: chaostoolkit
+        app: chaostoolkit
     spec:
       containers:
       - image: docker.io/mrbwilms/chaostoolkit:latest
@@ -20,4 +22,4 @@ spec:
       restartPolicy: Always
   selector:
     matchLabels:
-      shopping.demo.service: chaostoolkit
+      app: chaostoolkit

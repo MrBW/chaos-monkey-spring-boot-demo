@@ -1,14 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: shopping-demo
+  namespace: shoppingdemo
   name: fashion
+  labels:
+    app: shoppingdemo
 spec:
   ports:
   - name: "http"
     port: 8082
     targetPort: 8082
   selector:
-    shopping.demo.service: fashion
+    app: fashion
 status:
   loadBalancer: {}

@@ -1,23 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: shopping-demo
-  name: gateway
+  namespace: shoppingdemo
+  name: gateway-deployment
+  labels:
+    app: gateway
 spec:
-  replicas: 1
-  strategy: {}
+  replicas: 2
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
   template:
     metadata:
       labels:
-        shopping.demo.service: gateway
+        app: gateway
     spec:
       containers:
-      - image: docker.io/mrbwilms/gateway:latest
-        name: gateway
-        ports:
-        - containerPort: 8080
-        resources: {}
+        - image: docker.io/mrbwilms/gateway:latest
+          name: gateway
+          ports:
+            - containerPort: 8080
+          resources: {}
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /actuator/health
+            initialDelaySeconds: 120
+            failureThreshold: 10
+            timeoutSeconds: 10
       restartPolicy: Always
   selector:
     matchLabels:
-      shopping.demo.service: gateway
+      app: gateway
