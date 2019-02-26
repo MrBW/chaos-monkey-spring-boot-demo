@@ -2,9 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: shoppingdemo
-  name: gateway-deployment
+  name: gateway-pod
   labels:
-    app: gateway
+    app: shoppingdemo
+    type: spring-boot
 spec:
   replicas: 2
   strategy:

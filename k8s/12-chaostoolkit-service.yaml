@@ -2,9 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: shoppingdemo
-  name: chaostoolkit
+  name: chaostoolkit-service
   labels:
-    app: shoppingdemo
+    app: chaos-engineering
 spec:
   ports:
   - name: ssh

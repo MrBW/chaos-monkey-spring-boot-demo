@@ -1,8 +1,10 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: chaostoolkit
+  name: chaostoolkit-ingress
   namespace: shoppingdemo
+  labels:
+    app: chaos-engineering
 spec:
   rules:
     - host: chaostoolkit.workshop.demo

@@ -2,9 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: shoppingdemo
-  name: chaostoolkit
+  name: chaostoolkit-pod
   labels:
-    app: shoppingdemo
+    app: chaostoolkit
+    type: chaos-engineering-tool
 spec:
   replicas: 1
   template:
@@ -15,8 +16,6 @@ spec:
       containers:
       - image: docker.io/mrbwilms/chaostoolkit:latest
         name: chaostoolkit
-        ports:
-        - containerPort: 22
         resources: {}
         tty: true
       restartPolicy: Always

@@ -2,9 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: shoppingdemo
-  name: hot-deals
+  name: hot-deals-pod
   labels:
     app: shoppingdemo
+    type: spring-boot
 spec:
   replicas: 2
   strategy:

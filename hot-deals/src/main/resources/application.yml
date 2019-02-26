@@ -20,7 +20,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: chaosmonkey
+        include: '*'
 chaos:
   monkey:
     enabled: false
