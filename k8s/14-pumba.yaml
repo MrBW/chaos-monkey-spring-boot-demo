@@ -28,11 +28,11 @@ spec:
           args:
             - --random
             - --interval
-            - "60s"
+            - "10s"
             - kill
             - --signal
             - "SIGKILL"
-            - "re2:.*-pod-*"
+            - "re2:fashion*|toys*|hot*|gateway*"
           resources:
             requests:
               cpu: 10m
