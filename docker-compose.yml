@@ -7,16 +7,19 @@ services:
 
   chaostoolkit:
     build: chaostoolkit-base/
+    container_name: chaostoolkit
     tty: true
 
   chaoshub:
     image: chaostoolkit/chaoshub:0.1.2
+    container_name: chaoshub
     ports:
     - "8888:8080"
     tty: true
 
   gateway:
     image: gateway
+    container_name: gateway
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
       - NET_ADMIN
@@ -25,6 +28,7 @@ services:
 
   fashion:
     image: bestseller-fashion
+    container_name: fashion
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
       - NET_ADMIN
@@ -33,6 +37,7 @@ services:
 
   toys:
     image: bestseller-toys
+    container_name: toys
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
       - NET_ADMIN
@@ -41,6 +46,7 @@ services:
 
   hot-deals:
     image: hot-deals
+    container_name: hot-deals
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
       - NET_ADMIN
@@ -49,11 +55,13 @@ services:
 
   eureka-server:
     image: eureka-server
+    container_name: eureka-server
     ports:
     - "8761:8761"
 
   jaeger-server:
     image: jaegertracing/all-in-one
+    container_name: jaeger-server
     environment:
       - COLLECTOR_ZIPKIN_HTTP_PORT=9411
     ports:
