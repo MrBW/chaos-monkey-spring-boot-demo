@@ -17,21 +17,33 @@ services:
 
   gateway:
     image: gateway
+    # need NET_ADMIN to run chaos linux experiments
+    cap_add:
+      - NET_ADMIN
     ports:
     - "8080:8080"
 
   fashion:
     image: bestseller-fashion
+    # need NET_ADMIN to run chaos linux experiments
+    cap_add:
+      - NET_ADMIN
     ports:
     - 8090-8092:8082
 
   toys:
     image: bestseller-toys
+    # need NET_ADMIN to run chaos linux experiments
+    cap_add:
+      - NET_ADMIN
     ports:
     - "8081:8081"
 
   hot-deals:
     image: hot-deals
+    # need NET_ADMIN to run chaos linux experiments
+    cap_add:
+      - NET_ADMIN
     ports:
     - "8083:8083"
 
