@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: toys-ingress
+  namespace: shoppingdemo
+spec:
+  rules:
+    - host: toys-HOSTPATTERN.chaos.codecentric.io
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: toys-service
+              servicePort: 8081

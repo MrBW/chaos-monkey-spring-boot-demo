@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hotdeals-ingress
+  namespace: shoppingdemo
+spec:
+  rules:
+    - host: hotdeals-HOSTPATTERN.chaos.codecentric.io
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: hotdeals-service
+              servicePort: 8083

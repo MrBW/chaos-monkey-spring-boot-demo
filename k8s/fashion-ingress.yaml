@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: fashion-ingress
+  namespace: shoppingdemo
+spec:
+  rules:
+    - host: fashion-HOSTPATTERN.chaos.codecentric.io
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: fashion-service
+              servicePort: 8082

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: shoppingdemo
-  name: hot-deals-pod
+  name: hotdeals-pod
   labels:
     app: shoppingdemo
     type: spring-boot
@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       labels:
-        app: hot-deals
+        app: hotdeals
     spec:
       containers:
       - image: docker.io/mrbwilms/hot-deals:latest
@@ -33,4 +33,4 @@ spec:
       restartPolicy: Always
   selector:
     matchLabels:
-      app: hot-deals
+      app: hotdeals
