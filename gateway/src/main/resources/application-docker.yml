@@ -2,4 +2,4 @@ rest:
   endpoint:
     fashion: "http://fashion-service.shoppingdemo:8082/fashion/bestseller"
     toys: "http://toys-service.shoppingdemo:8081/toys/bestseller"
-    hotdeals: "http://hot-deals-service.shoppingdemo:8083/hotdeals"
+    hotdeals: "http://hotdeals-service.shoppingdemo:8083/hotdeals"

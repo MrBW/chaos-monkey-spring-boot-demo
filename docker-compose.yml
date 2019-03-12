@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   chaostoolkit:
-    image: mrbwilms/chaostoolkit-base:latest
+    image: mrbwilms/chaostoolkit:latest
     tty: true
 
   chaoshub:
@@ -12,22 +12,22 @@ services:
     tty: true
 
   gateway:
-    image: gateway
+    image: mrbwilms/gateway:latest
     ports:
     - "8080:8080"
 
   fashion:
-    image: bestseller-fashion
+    image: mrbwilms/bestseller-fashion:latest
     ports:
     - 8090-8092:8082
 
   toys:
-    image: bestseller-toys
+    image: mrbwilms/bestseller-toys:latest
     ports:
     - "8081:8081"
 
   hot-deals:
-    image: hot-deals
+    image: mrbwilms/hot-deals:latest
     ports:
     - "8083:8083"
 

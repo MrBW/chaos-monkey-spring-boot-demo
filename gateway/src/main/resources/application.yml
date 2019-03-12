@@ -15,6 +15,8 @@ spring:
   sleuth:
     sampler:
       probability: 1.0
+  jmx:
+    enabled: false
 management:
   endpoints:
     web:

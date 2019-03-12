@@ -45,7 +45,7 @@
         </dependency>
         <dependency>
             <groupId>com.example.chaos.monkey.shopping</groupId>
-            <artifactId>hot-deals</artifactId>
+            <artifactId>shared</artifactId>
             <version>${parent.version}</version>
         </dependency>
     </dependencies>
