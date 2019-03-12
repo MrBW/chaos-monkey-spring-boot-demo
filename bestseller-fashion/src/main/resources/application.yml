@@ -21,7 +21,7 @@ spring:
   profiles:
     active: chaos-monkey
   application:
-    name: fashion-bestseller
+    name: fashion
   zipkin:
     base-url: http://jaeger-server:9411
     sender:
