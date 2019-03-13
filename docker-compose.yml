@@ -3,36 +3,43 @@ version: '3.3'
 services:
   chaostoolkit:
     image: mrbwilms/chaostoolkit:latest
+    container_name: chaostoolkit
     tty: true
 
   chaoshub:
     image: chaostoolkit/chaoshub:0.1.2
+    container_name: chaoshub
     ports:
     - "8888:8080"
     tty: true
 
   gateway:
     image: mrbwilms/gateway:latest
+    container_name: gateway
     ports:
     - "8080:8080"
 
   fashion:
     image: mrbwilms/bestseller-fashion:latest
+    container_name: fashion
     ports:
     - 8090-8092:8082
 
   toys:
     image: mrbwilms/bestseller-toys:latest
+    container_name: fashion
     ports:
     - "8081:8081"
 
   hot-deals:
     image: mrbwilms/hot-deals:latest
+    container_name: hotdeals
     ports:
     - "8083:8083"
 
   jaeger-server:
     image: jaegertracing/all-in-one
+    container_name: jaeger-server
     environment:
       - COLLECTOR_ZIPKIN_HTTP_PORT=9411
     ports:
