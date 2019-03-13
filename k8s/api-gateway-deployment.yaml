@@ -18,7 +18,7 @@ spec:
         app: gateway
     spec:
       containers:
-        - image: docker.io/mrbwilms/gateway:latest
+        - image: docker.io/mrbwilms/gateway:chaos-ws-k8s
           name: gateway
           ports:
             - containerPort: 8080

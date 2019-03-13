@@ -148,6 +148,7 @@
                     <configuration>
                         <!--<repository>${project.artifactId}</repository>-->
                         <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                        <tag>chaos-ws-k8s</tag>
                         <buildArgs>
                             <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
                             <SERVICE_NAME>${project.name}</SERVICE_NAME>
