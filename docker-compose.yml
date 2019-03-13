@@ -1,12 +1,8 @@
 version: '3.3'
 
 services:
-  docker-base-image:
-    build: docker-base-image/
-    image: docker-base-image
-
   chaostoolkit:
-    build: chaostoolkit-base/
+    image: mrbwilms/chaostoolkit
     container_name: chaostoolkit
     tty: true
 
@@ -18,7 +14,7 @@ services:
     tty: true
 
   gateway:
-    image: gateway
+    image: mrbwilms/gateway
     container_name: gateway
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
@@ -27,7 +23,7 @@ services:
     - "8080:8080"
 
   fashion:
-    image: bestseller-fashion
+    image: mrbwilms/bestseller-fashion
     container_name: fashion
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
@@ -36,7 +32,7 @@ services:
     - 8090-8092:8082
 
   toys:
-    image: bestseller-toys
+    image: mrbwilms/bestseller-toys
     container_name: toys
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
@@ -45,7 +41,7 @@ services:
     - "8081:8081"
 
   hot-deals:
-    image: hot-deals
+    image: mrbwilms/hot-deals
     container_name: hot-deals
     # need NET_ADMIN to run chaos linux experiments
     cap_add:
@@ -54,7 +50,7 @@ services:
     - "8083:8083"
 
   eureka-server:
-    image: eureka-server
+    image: mrbwilms/eureka-server
     container_name: eureka-server
     ports:
     - "8761:8761"
