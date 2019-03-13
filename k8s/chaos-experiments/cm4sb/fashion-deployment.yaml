@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: shoppingdemo
+  name: fashion-pod
+  labels:
+    app: shoppingdemo
+    type: spring-boot
+spec:
+  replicas: 3
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: fashion
+    spec:
+      containers:
+      - image: docker.io/mrbwilms/bestseller-fashion:latest
+        name: fashion
+        ports:
+        - containerPort: 8082
+        resources: {}
+        livenessProbe:
+          httpGet:
+            port: 8082
+            path: /actuator/health
+          initialDelaySeconds: 120
+          failureThreshold: 10
+          timeoutSeconds: 10
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: fashion

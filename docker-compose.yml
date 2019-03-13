@@ -27,7 +27,7 @@ services:
 
   toys:
     image: mrbwilms/bestseller-toys:latest
-    container_name: fashion
+    container_name: toys
     ports:
     - "8081:8081"
 
