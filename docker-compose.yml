@@ -1,67 +1,43 @@
 version: '3.3'
 
 services:
-  docker-base-image:
-    build: docker-base-image/
-    image: docker-base-image
-
   chaostoolkit:
-    build: chaostoolkit-base/
-    container_name: chaostoolkit
+    image: mrbwilms/chaostoolkit
     tty: true
 
   chaoshub:
     image: chaostoolkit/chaoshub:0.1.2
-    container_name: chaoshub
     ports:
-    - "8888:8080"
+      - "8888:8080"
     tty: true
 
   gateway:
     image: gateway
-    container_name: gateway
-    # need NET_ADMIN to run chaos linux experiments
-    cap_add:
-      - NET_ADMIN
     ports:
-    - "8080:8080"
+      - "8080:8080"
 
   fashion:
     image: bestseller-fashion
-    container_name: fashion
-    # need NET_ADMIN to run chaos linux experiments
-    cap_add:
-      - NET_ADMIN
     ports:
-    - 8090-8092:8082
+      - 8090-8092:8082
 
   toys:
     image: bestseller-toys
-    container_name: toys
-    # need NET_ADMIN to run chaos linux experiments
-    cap_add:
-      - NET_ADMIN
     ports:
-    - "8081:8081"
+      - "8081:8081"
 
   hot-deals:
     image: hot-deals
-    container_name: hot-deals
-    # need NET_ADMIN to run chaos linux experiments
-    cap_add:
-      - NET_ADMIN
     ports:
-    - "8083:8083"
+      - "8083:8083"
 
   eureka-server:
     image: eureka-server
-    container_name: eureka-server
     ports:
-    - "8761:8761"
+      - "8761:8761"
 
   jaeger-server:
     image: jaegertracing/all-in-one
-    container_name: jaeger-server
     environment:
       - COLLECTOR_ZIPKIN_HTTP_PORT=9411
     ports:
