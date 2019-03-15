@@ -2,53 +2,39 @@ version: '3.3'
 
 services:
   chaostoolkit:
-    image: mrbwilms/chaostoolkit:latest
-    container_name: chaostoolkit
+    image: mrbwilms/chaostoolkit
     tty: true
 
   chaoshub:
     image: chaostoolkit/chaoshub:0.1.2
-    container_name: chaoshub
     ports:
-    - "8888:8080"
+      - "8888:8080"
     tty: true
 
   gateway:
-    image: mrbwilms/gateway:chaos-ws-docker
-    # need NET_ADMIN to run chaos linux experiments
-    cap_add:
-      - NET_ADMIN
+    image: gateway
     ports:
-    - "8080:8080"
+      - "8080:8080"
 
   fashion:
-    image: mrbwilms/bestseller-fashion:chaos-ws-docker
-    # need NET_ADMIN to run chaos linux experiments
-    cap_add:
-      - NET_ADMIN
+    image: bestseller-fashion
     ports:
-    - 8090-8092:8082
+      - "8090:8082"
 
   toys:
-    image: mrbwilms/bestseller-toys:chaos-ws-docker
-    # need NET_ADMIN to run chaos linux experiments
-    cap_add:
-      - NET_ADMIN
+    image: bestseller-toys
     ports:
-    - "8081:8081"
+      - "8081:8081"
 
   hot-deals:
-    image: mrbwilms/hot-deals:chaos-ws-docker
-    # need NET_ADMIN to run chaos linux experiments
-    cap_add:
-      - NET_ADMIN
+    image: hot-deals
     ports:
-    - "8083:8083"
+      - "8083:8083"
 
   eureka-server:
-    image: mrbwilms/eureka-server:chaos-ws-docker
+    image: eureka-server
     ports:
-    - "8761:8761"
+      - "8761:8761"
 
   jaeger-server:
     image: jaegertracing/all-in-one
