@@ -3,43 +3,36 @@ version: '3.3'
 services:
   chaostoolkit:
     image: mrbwilms/chaostoolkit:chaos-ws-docker
-    container_name: chaostoolkit
     tty: true
 
   chaoshub:
     image: chaostoolkit/chaoshub:0.1.2
-    container_name: chaoshub
     ports:
-      - "8888:8080"
+    - "8888:8080"
     tty: true
 
   gateway:
     image: mrbwilms/gateway:chaos-ws-docker
-    container_name: gateway
     ports:
-      - "8080:8080"
+    - "8080:8080"
 
   fashion:
     image: mrbwilms/bestseller-fashion:chaos-ws-docker
-    container_name: fashion-service
     ports:
-      - "8090:8082"
+    - 8090-8092:8082
 
   toys:
     image: mrbwilms/bestseller-toys:chaos-ws-docker
-    container_name: toys-service
     ports:
-      - "8081:8081"
+    - "8081:8081"
 
   hot-deals:
     image: mrbwilms/hot-deals:chaos-ws-docker
-    container_name: hotdeals-service
     ports:
-      - "8083:8083"
+    - "8083:8083"
 
   jaeger-server:
     image: jaegertracing/all-in-one
-    container_name: jaeger-server
     environment:
       - COLLECTOR_ZIPKIN_HTTP_PORT=9411
     ports:
