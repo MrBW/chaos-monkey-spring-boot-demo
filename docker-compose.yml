@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   chaostoolkit:
-    image: mrbwilms/chaostoolkit:latest
+    image: mrbwilms/chaostoolkit:chaos-ws-docker
     container_name: chaostoolkit
     tty: true
 
