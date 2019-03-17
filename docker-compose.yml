@@ -32,7 +32,7 @@ services:
     - "8083:8083"
 
   eureka-server:
-    image: eureka-server
+    image: mrbwilms/eureka-server:chaos-ws-docker
     ports:
       - "8761:8761"
 
