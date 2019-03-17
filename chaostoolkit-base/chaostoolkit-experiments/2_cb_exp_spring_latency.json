@@ -26,7 +26,7 @@
       "name": "enable_chaosmonkey",
       "provider": {
         "arguments": {
-          "base_url": "http://fashion:8090/actuator"
+          "base_url": "http://host.docker.internal:8090/actuator"
         },
         "func": "enable_chaosmonkey",
         "module": "chaosspring.actions",

@@ -26,7 +26,7 @@
       "name": "enable_chaosmonkey",
       "provider": {
         "arguments": {
-          "base_url": "http://fashion:8090/actuator"
+          "base_url": "http://host.docker.internal:8090/actuator"
         },
         "func": "enable_chaosmonkey",
         "module": "chaosspring.actions",
@@ -38,7 +38,7 @@
       "name": "configure_assaults",
       "provider": {
         "arguments": {
-          "base_url": "http://fashion:8090/actuator",
+          "base_url": "http://host.docker.internal:8090/actuator",
           "assaults_configuration": {
             "level": 1,
             "latencyRangeStart": 5000,
@@ -64,7 +64,7 @@
         "module": "chaosspring.actions",
         "func": "disable_chaosmonkey",
         "arguments": {
-          "base_url": "http://fashion:8090/actuator"
+          "base_url": "http://host.docker.internal:8090/actuator"
         }
       }
     }
