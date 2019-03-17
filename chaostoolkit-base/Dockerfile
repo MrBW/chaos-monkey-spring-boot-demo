@@ -23,6 +23,7 @@ RUN \
 RUN chmod a+x /root/install-chaos.sh
 RUN . /root/install-chaos.sh
 RUN ip -4 route list match 0/0 | awk '{print $3 "host.docker.internal"}' >> /etc/hosts
+RUN export PYTHONWARNINGS=ignore
 
 # Set environment variables.
 ENV HOME /root
