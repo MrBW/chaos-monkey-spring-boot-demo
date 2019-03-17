@@ -6,20 +6,6 @@
     "service",
     "spring"
   ],
-  "configuration": {
-    "tracing_provider": "jaeger",
-    "tracing_host": "jaeger-server",
-    "tracing_port": 6831
-  },
-  "controls": [
-    {
-      "name": "opentracing",
-      "provider": {
-        "type": "python",
-        "module": "chaostracing.control"
-      }
-    }
-  ],
   "steady-state-hypothesis": {
     "probes": [
       {
@@ -43,7 +29,7 @@
       "name": "enable_chaosmonkey",
       "provider": {
         "arguments": {
-          "base_url": "http://fashion-service:8082/actuator"
+          "base_url": "http://fashion:8090/actuator"
         },
         "func": "enable_chaosmonkey",
         "module": "chaosspring.actions",
@@ -55,7 +41,7 @@
       "name": "configure_assaults",
       "provider": {
         "arguments": {
-          "base_url": "http://fashion-service:8082/actuator",
+          "base_url": "http://fashion:8090/actuator",
           "assaults_configuration": {
             "level": 1,
             "latencyRangeStart": 1000,
@@ -93,7 +79,7 @@
         "module": "chaosspring.actions",
         "func": "disable_chaosmonkey",
         "arguments": {
-          "base_url": "http://fashion-service:8082/actuator"
+          "base_url": "http://fashion:8090/actuator"
         }
       }
     }
