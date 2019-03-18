@@ -21,8 +21,6 @@ RUN \
   apt-get -y install openssh-server && \
   apt-get -y install jq
 
-RUN   echo "Some line to add to a file" >> /etc/sysctl.conf
-RUN   echo "Some line to add to a file" >> /etc/sysctl.conf
 RUN chmod a+x /root/install-chaos.sh
 RUN . /root/install-chaos.sh
 
