@@ -13,21 +13,33 @@ services:
 
   gateway:
     image: mrbwilms/gateway:chaos-ws-docker
+    # need NET_ADMIN to run chaos linux experiments
+    cap_add:
+      - NET_ADMIN
     ports:
     - "8080:8080"
 
   fashion:
     image: mrbwilms/bestseller-fashion:chaos-ws-docker
+    # need NET_ADMIN to run chaos linux experiments
+    cap_add:
+      - NET_ADMIN
     ports:
     - 8090-8092:8082
 
   toys:
     image: mrbwilms/bestseller-toys:chaos-ws-docker
+    # need NET_ADMIN to run chaos linux experiments
+    cap_add:
+      - NET_ADMIN
     ports:
     - "8081:8081"
 
   hot-deals:
     image: mrbwilms/hot-deals:chaos-ws-docker
+    # need NET_ADMIN to run chaos linux experiments
+    cap_add:
+      - NET_ADMIN
     ports:
     - "8083:8083"
 
