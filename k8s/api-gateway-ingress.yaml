@@ -5,7 +5,7 @@ metadata:
   namespace: shoppingdemo
 spec:
   rules:
-    - host: gateway-{HOSTPATTERN}.chaos.codecentric.io
+    - host: gateway-HOSTPATTERN.chaos.codecentric.io
       http:
         paths:
           - path: /
