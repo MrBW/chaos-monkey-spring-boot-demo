@@ -14,7 +14,7 @@
       "name": "api-gateway-must-still-respond",
       "provider": {
         "type": "http",
-        "url": "http://gateway-HOSTPATTERN.chaos.codecentric.io/startpage/cb",
+        "url": "http://gateway-HOSTPATTERN.chaos.codecentric.io/startpage/lb",
         "timeout": [0.25, 0.50]
       },
       "tolerance": 200,

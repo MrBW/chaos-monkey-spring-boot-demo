@@ -14,7 +14,7 @@
       "name": "api-gateway-must-still-respond",
       "provider": {
         "type": "http",
-        "url": "http://gateway-HOSTPATTERN.chaos.codecentric.io/startpage/cb",
+        "url": "http://gateway-HOSTPATTERN.chaos.codecentric.io/startpage/lb",
         "timeout": [0.25, 0.50]
       },
       "tolerance": 200,
@@ -44,7 +44,7 @@
       "path": "kubectl",
       "arguments":{
         "apply":"",
-        "-f":"../pumba-kill-pods.yaml"
+        "-f":"../pumba-kill-all-remote-services.yaml"
       }
     },
     "pauses": {
@@ -61,7 +61,7 @@
       "path": "kubectl",
       "arguments":{
         "delete":"",
-        "-f":"../pumba-kill-pods.yaml"
+        "-f":"../pumba-kill-all-remote-services.yaml"
       }
     }
   }

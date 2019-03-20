@@ -22,7 +22,7 @@ spec:
         - image: docker.io/mrbwilms/bestseller-fashion:chaos-ws-k8s
           command: ["sh"]
           args: ["-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar --spring.profiles.active=docker,chaos-monkey --chaos.monkey.enabled=true
-          --chaos.monkey.assaults.level=1 --chaos.monkey.assaults.latencyActive=false --chaos.monkey.assaults.exceptionsActive=true"]
+          --chaos.monkey.assaults.level=1 --chaos.monkey.assaults.latencyActive=false --chaos.monkey.assaults.killApplicationActive=true"]
           name: fashion
           ports:
             - containerPort: 8082
