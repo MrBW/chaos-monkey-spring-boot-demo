@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: shoppingdemo
+  name: cm4sb-fashion-pod
+  labels:
+    app: shoppingdemo
+    type: spring-boot
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: fashion
+        cm4sb: active
+    spec:
+      containers:
+        - image: docker.io/mrbwilms/bestseller-fashion:chaos-ws-k8s
+          command: ["sh"]
+          args: ["-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar --spring.profiles.active=docker,chaos-monkey --chaos.monkey.enabled=true
+          --chaos.monkey.assaults.level=1 --chaos.monkey.assaults.latencyActive=false --chaos.monkey.assaults.exceptionsActive=true"]
+          name: fashion
+          ports:
+            - containerPort: 8082
+          resources: {}
+          livenessProbe:
+            httpGet:
+              port: 8082
+              path: /actuator/health
+            initialDelaySeconds: 120
+            failureThreshold: 10
+            timeoutSeconds: 10
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: fashion
+      cm4sb: active

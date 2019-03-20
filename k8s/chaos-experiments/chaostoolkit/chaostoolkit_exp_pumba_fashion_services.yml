@@ -44,7 +44,7 @@
       "path": "kubectl",
       "arguments":{
         "apply":"",
-        "-f":"pumba-kill-pods.yaml"
+        "-f":"../pumba-inject-latency-all-fashion-services.yaml"
       }
     },
     "pauses": {
@@ -61,7 +61,7 @@
       "path": "kubectl",
       "arguments":{
         "delete":"",
-        "-f":"pumba-kill-pods.yaml"
+        "-f":"../pumba-inject-latency-all-fashion-services.yaml"
       }
     }
   }

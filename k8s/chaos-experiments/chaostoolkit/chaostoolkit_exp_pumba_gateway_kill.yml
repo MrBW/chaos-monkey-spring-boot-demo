@@ -14,7 +14,7 @@
       "name": "api-gateway-must-still-respond",
       "provider": {
         "type": "http",
-        "url": "http://gateway-teacher.chaos.codecentric.io/startpage/cb",
+        "url": "http://gateway-HOSTPATTERN.chaos.codecentric.io/startpage/cb",
         "timeout": [0.25, 0.50]
       },
       "tolerance": 200,
@@ -38,13 +38,13 @@
   },
   {
     "type": "action",
-    "name": "enable_port_forwarding_cm4sb_deployment",
+    "name": "deploy_pumba_as_daemon_set",
     "provider": {
       "type": "process",
       "path": "kubectl",
       "arguments":{
-        "port-forward":"",
-        "-f":"deployment/cm4sb-fashion-pod 8888:8082 -n shoppingdemo"
+        "apply":"",
+        "-f":"../pumba-kill-gateway_pods.yaml"
       }
     },
     "pauses": {
@@ -61,7 +61,7 @@
       "path": "kubectl",
       "arguments":{
         "delete":"",
-        "-f":"pumba-kill-pods.yaml"
+        "-f":"../pumba-kill-gateway_pods.yaml"
       }
     }
   }
