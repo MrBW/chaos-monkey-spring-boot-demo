@@ -63,6 +63,7 @@
         "-c": "4",
         "-s": "1",
         "-g": "output.data",
+        "-v": "3",
         "https://gateway-HOSTPATTERN.chaos.codecentric.io/startpage/lb": ""
       }
     }
