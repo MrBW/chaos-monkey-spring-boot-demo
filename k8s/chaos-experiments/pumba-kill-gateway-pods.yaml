@@ -26,17 +26,13 @@ spec:
           imagePullPolicy: Always
           name: pumba
           args:
+            - --random
             - --interval
-            - "15s"
-            - netem
-            - --tc-image
-            - gaiadocker/iproute2
-            - --duration
             - "5s"
-            - delay
-            - --time
-            - "5000"
-            - "re2:.*fashion-pod*"
+            - kill
+            - --signal
+            - "SIGKILL"
+            - "re2:.*gateway-pod*"
           resources:
             requests:
               cpu: 10m
