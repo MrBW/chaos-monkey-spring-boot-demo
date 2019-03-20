@@ -57,12 +57,13 @@
       "provider": {
         "type": "process",
         "path": "ab",
-        "timeout": 5,
+        "timeout": 60,
         "arguments": {
           "-n": "500",
           "-c": "4",
           "-s": "1",
-          "https://gateway-student1.chaos.codecentric.io/startpage/lb": ""
+          "-g": "output.data",
+          "https://gateway-HOSTPATTERN.chaos.codecentric.io/startpage/lb": ""
         }
       }
     }

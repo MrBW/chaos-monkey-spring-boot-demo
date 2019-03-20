@@ -49,35 +49,37 @@
     },
     "pauses": {
       "after": 15
-    },
-    {
-      "type": "probe",
-      "name": "check-gateway-response",
-      "provider": {
-        "type": "process",
-        "path": "ab",
-        "timeout": 5,
-        "arguments": {
-          "-n": "500",
-          "-c": "4",
-          "-s": "1",
-          "https://gateway-student1.chaos.codecentric.io/startpage/lb": ""
-        }
+    }
+  },
+  {
+    "type": "probe",
+    "name": "check-gateway-response",
+    "provider": {
+      "type": "process",
+      "path": "ab",
+      "timeout": 60,
+      "arguments": {
+        "-n": "500",
+        "-c": "4",
+        "-s": "1",
+        "-g": "output.data",
+        "https://gateway-HOSTPATTERN.chaos.codecentric.io/startpage/lb": ""
       }
     }
-  ],
-    "rollbacks": [
-    {
-      "type": "action",
-      "name": "delete_cm4sb_fashion_pod",
-      "provider": {
-        "type": "process",
-        "path": "kubectl",
-        "arguments":{
-          "delete":"",
-          "-f":"../cm4sb/cm4sb_fashion_configure_exceptions.yaml"
-        }
-      }
-    }
-    ]
   }
+  ],
+  "rollbacks": [
+  {
+    "type": "action",
+    "name": "delete_cm4sb_fashion_pod",
+    "provider": {
+      "type": "process",
+      "path": "kubectl",
+      "arguments":{
+        "delete":"",
+        "-f":"../cm4sb/cm4sb_fashion_configure_exceptions.yaml"
+      }
+    }
+  }
+  ]
+}

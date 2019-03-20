@@ -50,6 +50,22 @@
     "pauses": {
       "after": 5
     }
+  },
+  {
+    "type": "probe",
+    "name": "check-gateway-response",
+    "provider": {
+      "type": "process",
+      "path": "ab",
+      "timeout": 60,
+      "arguments": {
+        "-n": "500",
+        "-c": "4",
+        "-s": "1",
+        "-g": "output.data",
+        "https://gateway-HOSTPATTERN.chaos.codecentric.io/startpage/lb": ""
+      }
+    }
   }
   ],
   "rollbacks": [
