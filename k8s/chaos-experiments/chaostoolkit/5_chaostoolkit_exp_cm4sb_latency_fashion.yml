@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
-  "title": "Pod should be automatically killed and restarted when unhealthy",
-  "description": "Can we trust Kubernetes to restart our microservice when it detects it is unhealthy?",
+  "title": "Deploy infected fashion pod and inject latency on application level",
+  "description": "Pod deploy incl. Chaos Monkey for Spring Boot to inject latency",
   "tags": [
     "microservice",
     "kubernetes",
-    "python"
+    "chaos-monkey-spring-boot"
   ],
   "steady-state-hypothesis": {
     "title": "Services are all available and healthy",

@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "title": "Pod should be automatically killed and restarted when unhealthy",
-  "description": "Can we trust Kubernetes to restart our microservice when it detects it is unhealthy?",
+  "title": "Deploy infected fashion pod to kill a Spring Boot App on application level",
+  "description": "Pod deploy incl. Chaos Monkey for Spring Boot to kill",
   "tags": [
     "microservice",
     "kubernetes",

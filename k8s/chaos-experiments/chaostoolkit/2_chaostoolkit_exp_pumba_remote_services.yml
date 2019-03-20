@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
-  "title": "Pod should be automatically killed and restarted when unhealthy",
-  "description": "Can we trust Kubernetes to restart our microservice when it detects it is unhealthy?",
+  "title": "Inject latency in fashion, toys and hotdeals pods",
+  "description": "Inject randomly latency in all 3 remote services via Pumba",
   "tags": [
     "microservice",
     "kubernetes",
-    "python"
+    "pumba"
   ],
   "steady-state-hypothesis": {
     "title": "Services are all available and healthy",
