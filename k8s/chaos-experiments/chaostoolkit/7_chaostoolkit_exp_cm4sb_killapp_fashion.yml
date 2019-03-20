@@ -1,0 +1,69 @@
+{
+  "version": "1.0.0",
+  "title": "Pod should be automatically killed and restarted when unhealthy",
+  "description": "Can we trust Kubernetes to restart our microservice when it detects it is unhealthy?",
+  "tags": [
+    "microservice",
+    "kubernetes",
+    "python"
+  ],
+  "steady-state-hypothesis": {
+    "title": "Services are all available and healthy",
+    "probes": [
+    {
+      "name": "api-gateway-must-still-respond",
+      "provider": {
+        "type": "http",
+        "url": "http://gateway-HOSTPATTERN.chaos.codecentric.io/startpage/lb",
+        "timeout": [0.25, 0.50]
+      },
+      "tolerance": 200,
+      "type": "probe"
+    }
+    ]
+  },
+  "method": [
+  {
+    "type": "probe",
+    "name": "all-services-are-healthy",
+    "tolerance": true,
+    "provider": {
+      "type": "python",
+      "module": "chaosk8s.probes",
+      "func": "all_microservices_healthy",
+      "arguments": {
+        "ns": "shoppingdemo"
+      }
+    }
+  },
+  {
+    "type": "action",
+    "name": "deploy_cm4sb_fashion_pod",
+    "provider": {
+      "type": "process",
+      "path": "kubectl",
+      "arguments":{
+        "apply":"",
+        "-f":"../cm4sb/cm4sb_fashion_configure_killapp.yaml"
+      }
+    },
+    "pauses": {
+      "after": 5
+    }
+  }
+  ],
+  "rollbacks": [
+  {
+    "type": "action",
+    "name": "delete_cm4sb_fashion_pod",
+    "provider": {
+      "type": "process",
+      "path": "kubectl",
+      "arguments":{
+        "delete":"",
+        "-f":"../cm4sb/cm4sb_fashion_configure_killapp.yaml"
+      }
+    }
+  }
+  ]
+}

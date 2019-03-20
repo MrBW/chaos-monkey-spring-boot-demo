@@ -44,7 +44,7 @@
       "path": "kubectl",
       "arguments":{
         "apply":"",
-        "-f":"../pumba-kill-all-remote-services.yaml"
+        "-f":"../cm4sb/cm4sb_fashion_configure_latency.yaml"
       }
     },
     "pauses": {
@@ -61,7 +61,7 @@
       "path": "kubectl",
       "arguments":{
         "delete":"",
-        "-f":"../pumba-kill-all-remote-services.yaml"
+        "-f":"../cm4sb/cm4sb_fashion_configure_latency.yaml"
       }
     }
   }
