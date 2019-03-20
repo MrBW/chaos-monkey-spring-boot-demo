@@ -19,7 +19,10 @@ spec:
         cm4sb: active
     spec:
       containers:
-        - image: docker.io/mrbwilms/bestseller-fashion:latest
+        - image: docker.io/mrbwilms/bestseller-fashion:chaos-ws-k8s
+          command: ["java $JAVA_OPTS"]
+          args: ["-Djava.security.egd=file:/dev/./urandom -jar /app.jar --spring.profiles.active=docker,chaos-monkey --chaos.monkey.enabled=true
+          --chaos.monkey.assaults.level=1"]
           name: fashion
           ports:
             - containerPort: 8082
