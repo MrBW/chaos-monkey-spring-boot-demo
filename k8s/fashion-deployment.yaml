@@ -27,9 +27,9 @@ spec:
           httpGet:
             port: 8082
             path: /actuator/health
-          initialDelaySeconds: 120
-          failureThreshold: 10
-          timeoutSeconds: 10
+          initialDelaySeconds: 30
+          failureThreshold: 3
+          timeoutSeconds: 5
       restartPolicy: Always
   selector:
     matchLabels:

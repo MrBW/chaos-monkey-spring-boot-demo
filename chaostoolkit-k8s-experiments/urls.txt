@@ -1,3 +1,0 @@
-GET http://gateway.workshop.demo/startpage
-GET http://gateway.workshop.demo/startpage/cb
-GET http://gateway.workshop.demo/startpage/lb

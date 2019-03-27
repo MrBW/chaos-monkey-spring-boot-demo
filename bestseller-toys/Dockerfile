@@ -1,4 +1,4 @@
-FROM mrbwilms/docker-base-image:latest
+FROM openjdk:8-jdk-alpine
 ARG SERVICE_NAME
 ARG JAR_FILE
 

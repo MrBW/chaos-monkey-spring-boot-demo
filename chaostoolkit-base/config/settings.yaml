@@ -1,4 +1,0 @@
-auths:
-  dummyhost:9999:
-    type: bearer
-    value: 3666c5be86b61ee7bc6553d81217cdc704fe25000dce1fb3a9f017b7782f
