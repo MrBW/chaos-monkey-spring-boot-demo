@@ -20,6 +20,7 @@ spec:
       containers:
       - image: docker.io/mrbwilms/bestseller-toys:chaos-ws-k8s
         name: toys
+        imagePullPolicy: Always
         ports:
         - containerPort: 8081
         resources: {}

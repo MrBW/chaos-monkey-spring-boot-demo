@@ -20,6 +20,7 @@ spec:
       containers:
       - image: docker.io/mrbwilms/bestseller-fashion:chaos-ws-k8s
         name: fashion
+        imagePullPolicy: Always
         ports:
         - containerPort: 8082
         resources: {}

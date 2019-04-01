@@ -20,6 +20,7 @@ spec:
       containers:
       - image: docker.io/mrbwilms/hot-deals:chaos-ws-k8s
         name: hotdeals
+        imagePullPolicy: Always
         ports:
         - containerPort: 8083
         resources: {}
