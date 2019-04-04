@@ -21,3 +21,4 @@ echo Install ChaosToolkit plugin chaoshub
 pip install chaostoolkit-chaoshub
 pip install -U chaostoolkit-opentracing
 pip install chaostoolkit-opentracing[jaeger]
+pip install -U chaostoolkit-lib
