@@ -18,7 +18,7 @@ RUN \
   apt-get -y install nano && \
   apt-get -y install inetutils-ping && \
   apt-get -y install curl && \
-  sudo apt-get install iproute2 && \
+  apt-get install iproute2 && \
   apt-get -y install jq
 
 RUN chmod a+x /root/install-chaos.sh
