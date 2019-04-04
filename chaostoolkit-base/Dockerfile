@@ -18,10 +18,12 @@ RUN \
   apt-get -y install nano && \
   apt-get -y install inetutils-ping && \
   apt-get -y install curl && \
+  apt-get install iproute2 && \
   apt-get -y install jq
 
 RUN chmod a+x /root/install-chaos.sh
 RUN . /root/install-chaos.sh
+RUN ip -4 route list match 0/0 | awk '{print $3 " host.docker.internal"}' >> /etc/hosts
 
 # Set environment variables.
 ENV HOME /root

@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   chaostoolkit:
-    image: mrbwilms/chaostoolkit
+    image: mrbwilms/chaostoolkit:chaos-demo
     tty: true
 
   chaoshub:
@@ -12,27 +12,27 @@ services:
     tty: true
 
   gateway:
-    image: mrbwilms/gateway:chaos-ws-docker
+    image: mrbwilms/gateway:chaos-demo
     ports:
       - "8080:8080"
 
   fashion:
-    image: mrbwilms/bestseller-fashion:chaos-ws-docker
+    image: mrbwilms/bestseller-fashion:chaos-demo
     ports:
       - 8090-8092:8082
 
   toys:
-    image: mrbwilms/bestseller-toys:chaos-ws-docker
+    image: mrbwilms/bestseller-toys:chaos-demo
     ports:
       - "8081:8081"
 
   hot-deals:
-    image: mrbwilms/hot-deals:chaos-ws-docker
+    image: mrbwilms/hot-deals:chaos-demo
     ports:
       - "8083:8083"
 
   eureka-server:
-    image: mrbwilms/eureka-server:chaos-ws-docker
+    image: mrbwilms/eureka-server:chaos-demo
     ports:
       - "8761:8761"
 
