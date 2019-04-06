@@ -14,4 +14,5 @@ RUN sh -c 'apt-get install apache2-utils -qq'
 RUN sh -c 'apt-get install nano -qq'
 RUN sh -c 'apt-get install curl -qq'
 RUN sh -c 'apt-get install stress -qq'
+RUN ip -4 route list match 0/0 | awk '{print $3 " host.docker.internal"}' >> /etc/hosts
 RUN useradd -ms /bin/bash chaos
