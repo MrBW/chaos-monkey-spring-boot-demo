@@ -48,10 +48,9 @@ public class GatewayApplication {
     }
 
     @GetMapping("/fallback")
-    public ResponseEntity<List<Product>> fallback(HystrixRuntimeException exception) {
+    public ResponseEntity<List<Product>> fallback() {
 
         tracer.currentSpan().tag("fallback", "true");
-        tracer.currentSpan().tag("failureType", exception != null ? exception.getFailureType().name() : "unknown");
 
         System.out.println("fallback enabled");
         HttpHeaders headers = new HttpHeaders();
