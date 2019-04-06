@@ -6,7 +6,7 @@ spring:
   application:
     name: hotdeals
   zipkin:
-    base-url: http://jaeger-server:9411
+    base-url: http://host.docker.internal:42699/com.instana.plugin.jaeger.trace
     sender:
       type: web
   sleuth:

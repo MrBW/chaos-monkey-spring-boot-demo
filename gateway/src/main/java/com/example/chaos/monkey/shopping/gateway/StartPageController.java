@@ -56,8 +56,6 @@ public class StartPageController {
     @RequestMapping(value = {"/startpage/{version}"}, method = RequestMethod.GET)
     public Mono<Startpage> delegateStartpageRequest(@PathVariable Optional<String> version) {
 
-        System.out.println("Current Span (startpage): " + this.tracer.currentSpan());
-
         if (version.isPresent()) {
             if (version.get().equalsIgnoreCase("cb")) {
                 return getStartpageCircuitBreaker();

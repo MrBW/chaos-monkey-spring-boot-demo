@@ -31,41 +31,41 @@ public class RoutingConfiguration {
         return builder.routes()
 
                 // default legacy starpage endpoint, no timeouts, no exception, no reactive
-                .route("leagcy-startpage-route",p -> p.path("/startpage").uri("forward:/legacy"))
+                .route("startpage",p -> p.path("/startpage").uri("forward:/legacy"))
 
 
 
-                .route("hotdeals", p -> p.path("/cb/hotdeals**")
+                .route("startpage-cb-hotdeals", p -> p.path("/cb/hotdeals**")
                         .filters(f ->
                                 f.hystrix(c -> c.setName("hotdeals").setFallbackUri("forward:/fallback"))
                                         .rewritePath("(\\/cb)", ""))
                         .uri(urlHotDeals))
 
-                .route("fashion", p -> p.path("/cb/fashion/**")
+                .route("startpage-cb-fashion", p -> p.path("/cb/fashion/**")
                         .filters(f -> f.hystrix(c -> c.setName("fashion").setFallbackUri("forward:/fallback"))
                                 .rewritePath("(\\/cb)", ""))
                         .uri(urlFashion))
 
-                .route("toys", p -> p.path("/cb/toys/**")
+                .route("startpage-cb-toys", p -> p.path("/cb/toys/**")
                         .filters(f -> f.hystrix(c -> c.setName("toys").setFallbackUri("forward:/fallback"))
                                 .rewritePath("(\\/cb)", ""))
                         .uri(urlToys))
 
 
                 // Load-balanced routes
-                .route("loadbalanced-hotdeals", p -> p.path("/lb/hotdeals**")
+                .route("startpage-lb-hotdeals", p -> p.path("/lb/hotdeals**")
                         .filters(f -> f.retry(c -> c.setRetries(2).setSeries(HttpStatus.Series.SERVER_ERROR))
                                 .hystrix(c -> c.setName("hotdeals").setFallbackUri("forward:/fallback"))
                                 .rewritePath("(\\/lb)", ""))
                         .uri("lb://hotdeals"))
 
-                .route("loadbalanced-fashion", p -> p.path("/lb/fashion/**")
+                .route("startpage-lb-fashion", p -> p.path("/lb/fashion/**")
                         .filters(f -> f.retry(c -> c.setRetries(2).setSeries(HttpStatus.Series.SERVER_ERROR))
                                 .hystrix(c -> c.setName("fashion").setFallbackUri("forward:/fallback"))
                                 .rewritePath("(\\/lb)", ""))
                         .uri("lb://fashion-bestseller"))
 
-                .route("loadbalanced-toys", p -> p.path("/lb/toys/**")
+                .route("startpage-lb-toys", p -> p.path("/lb/toys/**")
                         .filters(f -> f.retry(c -> c.setRetries(2).setSeries(HttpStatus.Series.SERVER_ERROR))
                                 .hystrix(c -> c.setName("toys").setFallbackUri("forward:/fallback"))
                                 .rewritePath("(\\/lb)", ""))
