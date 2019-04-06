@@ -5,8 +5,8 @@ metadata:
   namespace: shoppingdemo
 spec:
   rules:
-    - host: toys.workshop.demo
-    #- host: toys-HOSTPATTERN.chaos.codecentric.io
+    #- host: toys.workshop.demo
+    - host: toys-HOSTPATTERN.chaos.codecentric.io
       http:
         paths:
           - path: /
