@@ -52,75 +52,9 @@ public class StartPageController {
         errorResponse.setProducts(Collections.emptyList());
     }
 
-
-    @RequestMapping(value = {"/startpage/{version}"}, method = RequestMethod.GET)
-    public Mono<Startpage> delegateStartpageRequest(@PathVariable Optional<String> version) {
-
-        if (version.isPresent()) {
-            if (version.get().equalsIgnoreCase("cb")) {
-                return getStartpageCircuitBreaker();
-            } else if (version.get().equalsIgnoreCase("lb")) {
-                return getStartpageLoadBalanced();
-            }
-        }
-
-
-        Startpage fallbackStartpage = new Startpage();
-        fallbackStartpage.setStatusFashion("unsupported");
-        fallbackStartpage.setStatusHotDeals("unsupported");
-        fallbackStartpage.setStatusToys("unsupported");
-        return Mono.just(fallbackStartpage);
-
-    }
-
-
-    private Mono<Startpage> getStartpageCircuitBreaker() {
+    @RequestMapping(value = {"/startpage"}, method = RequestMethod.GET)
+    public Mono<Startpage> getStartpageLoadBalanced() {
         long start = System.currentTimeMillis();
-
-        Span newSpan = this.tracer.nextSpan().name("allProductsCircuitBreaker");
-        newSpan.tag("circuit.breaker", "true");
-        newSpan.tag("load-balanced", "false");
-
-        try (Tracer.SpanInScope ws = this.tracer.withSpanInScope(newSpan.start())) {
-
-            Mono<ProductResponse> hotdeals = webClient.get().uri("/cb/hotdeals").exchange().flatMap(responseProcessor)
-                    .doOnError(t -> {
-                        System.out.println("on error");
-                    })
-                    .onErrorResume(t -> {
-                        System.out.println("on error resume");
-                        t.printStackTrace();
-                        return Mono.just(errorResponse);
-                    });
-            Mono<ProductResponse> fashionBestSellers = webClient.get().uri("/cb/fashion/bestseller").exchange().flatMap(responseProcessor)
-                    .onErrorResume(t -> {
-                        if (t instanceof TimeoutException) {
-                            newSpan.tag("failure", "timeout");
-                        } else if (t instanceof ResponseStatusException) {
-                            newSpan.tag("failure", "responseStatusException");
-                        }
-
-                        t.printStackTrace();
-                        return Mono.just(errorResponse);
-                    });
-            Mono<ProductResponse> toysBestSellers = webClient.get().uri("/cb/toys/bestseller").exchange().flatMap(responseProcessor)
-                    .onErrorResume(t -> {
-                        t.printStackTrace();
-                        return Mono.just(errorResponse);
-                    });
-
-            return aggregateResults(start, hotdeals, fashionBestSellers, toysBestSellers);
-        } finally {
-            newSpan.finish();
-        }
-
-
-    }
-
-
-    private Mono<Startpage> getStartpageLoadBalanced() {
-        long start = System.currentTimeMillis();
-
 
         Span continuedSpan = this.tracer.toSpan(this.tracer.currentSpan().context());
 
