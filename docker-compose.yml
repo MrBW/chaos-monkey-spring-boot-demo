@@ -1,6 +1,9 @@
 version: '3.3'
 
 services:
+  requestload:
+    image: mrbwilms/requestload
+
   chaostoolkit:
     image: mrbwilms/chaostoolkit:chaos-demo
     tty: true
