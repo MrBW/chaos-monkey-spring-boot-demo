@@ -1,17 +1,8 @@
 version: '3.3'
 
 services:
-  requestload:
-    image: mrbwilms/requestload
-
-  chaostoolkit:
+    chaostoolkit:
     image: mrbwilms/chaostoolkit:chaos-demo
-    tty: true
-
-  chaoshub:
-    image: chaostoolkit/chaoshub:0.1.2
-    ports:
-      - "8888:8080"
     tty: true
 
   gateway:
